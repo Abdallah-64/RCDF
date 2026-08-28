@@ -28,6 +28,7 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('tiny'));
 // Only credential submissions need a strict login throttle. Profile requests
 // must remain available so a valid dashboard session is not accidentally locked out.
 app.use('/api/auth/login', sensitiveLimiter(10, 100));
+app.use('/api/auth/credentials', sensitiveLimiter(5, 30));
 app.use('/api/contact', sensitiveLimiter(20, 50));
 app.get('/api/health', (req,res) => res.json({ success: true, data: { status: 'ok' } }));
 app.use('/api', api);
