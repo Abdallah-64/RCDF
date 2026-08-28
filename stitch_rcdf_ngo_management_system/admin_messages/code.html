@@ -1,0 +1,369 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RCDF Admin - Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0a2540",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-bright": "#faf9fb",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed-variant": "#005312",
+                        "secondary": "#1b6d24",
+                        "surface-container-high": "#e9e8ea",
+                        "inverse-surface": "#2f3033",
+                        "on-surface-variant": "#43474d",
+                        "on-secondary-container": "#217128",
+                        "on-secondary-fixed": "#002204",
+                        "surface-container": "#efedf0",
+                        "surface-variant": "#e3e2e5",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#1a0b00",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dbd9dc",
+                        "on-background": "#1b1c1e",
+                        "background": "#faf9fb",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#381d00",
+                        "secondary-container": "#a0f399",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#faf9fb",
+                        "surface-container-low": "#f5f3f6",
+                        "on-primary-container": "#768dad",
+                        "tertiary-fixed": "#ffdcbe",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-container-highest": "#e3e2e5",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "error-container": "#ffdad6",
+                        "primary": "#000f22",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c1e",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-container": "#ae835a",
+                        "inverse-primary": "#b0c8eb",
+                        "outline": "#74777e",
+                        "secondary-fixed": "#a3f69c",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "inverse-on-surface": "#f2f0f3",
+                        "outline-variant": "#c4c6ce"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "container-max": "1280px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant docked left-0 h-screen w-64 fixed flex flex-col h-full py-md z-20">
+<div class="px-md mb-lg">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">RCDF Admin</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-xs">Management Console</p>
+</div>
+<ul class="flex-1 space-y-2">
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                    Home Management
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span>
+                    Services
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                    Projects
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 text-label-md font-label-md active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                    Messages
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="px-md mt-auto pt-md border-t border-outline-variant">
+<div class="flex items-center gap-sm mb-md">
+<img alt="Admin User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A small circular profile picture of an administrative user in a professional modern corporate setting. Well lit, high quality photography, soft shadows, warm natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSUunzUsNG7BRhajB7Xpv1jNkF2hBh4tB_WWuwcGLpkU0bR8ru4Vcsrcl40zfDAE7w9rNiJA23iDrqc4rzI1yJaNc89deXd_WOi2HNCL4CFIcpFN-HvvHt4OKJLwMaHkWtDeUPvssuE8xUc29i6yuj_PtKliScbis5Mm-fkXEQzfaZA5_29fAZc9ax25XncR4ymp615wjmBjhj2-cE18cm-4j_MTwDVGQ3E60fOoOoWIofHck7pzu">
+<div class="flex-1 min-w-0">
+<p class="text-body-sm font-body-sm font-semibold truncate">Admin User</p>
+</div>
+</div>
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-on-surface py-2 rounded-lg text-label-md font-label-md transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline docked top-0 sticky flex justify-between items-center px-md h-16 z-10">
+<div class="flex items-center gap-sm text-on-surface dark:text-on-surface">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="text-headline-sm font-headline-sm text-primary dark:text-primary-fixed font-semibold">Messages</h2>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<img alt="Admin Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant ml-2" data-alt="A small circular profile picture of an administrative user in a professional modern corporate setting. Well lit, high quality photography, soft shadows, warm natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7bCIMJwg-Re6_3beG8wZPPOZpsPhBn-CMa6_ROJ-7owhuuxUsAJCUpRr24gP1E_mgepZzmprulRu8kIa3WfAgLzYgl0XY66aL6oPps4HcAG4Ybi-P-AsNI-4OWs8MMOjkubImi8GtZdZFO_QYF1TnjfuCFGM31JloCeDUN0-d1DYkwEAsst5AvclF-ciekjG_ntAkO5Iev-23yDZ0ZUE8czcf54nj6p8tON6V49-4SEe-7hGqEZjQ">
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 p-gutter bg-surface flex flex-col gap-md max-w-container-max mx-auto w-full">
+<!-- Toolbar -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-sm bg-surface-container-lowest p-sm rounded-lg border border-outline-variant shadow-[0px_4px_20px_rgba(15,23,42,0.08)]">
+<div class="flex items-center gap-md w-full sm:w-auto">
+<div class="flex items-center gap-2">
+<input class="rounded border-outline text-primary focus:ring-primary w-5 h-5 cursor-pointer" id="selectAll" type="checkbox">
+<label class="text-label-md font-label-md text-on-surface cursor-pointer select-none" for="selectAll">Select All</label>
+</div>
+<div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex gap-2">
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-md hover:bg-surface-container text-on-surface-variant text-label-md font-label-md transition-colors" title="Mark as Read">
+<span class="material-symbols-outlined text-[20px]" data-icon="mark_email_read">mark_email_read</span>
+<span class="hidden md:inline">Mark Read</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-md font-label-md transition-colors" title="Delete Selected">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+<span class="hidden md:inline">Delete</span>
+</button>
+</div>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow bg-surface-container-lowest" placeholder="Search messages..." type="text">
+</div>
+</div>
+<!-- Inbox Split View Layout -->
+<div class="flex-1 flex gap-md min-h-0 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.08)] overflow-hidden">
+<!-- Message List (Left Panel) -->
+<div class="w-full md:w-1/3 border-r border-outline-variant flex flex-col bg-surface-container-lowest overflow-hidden">
+<div class="p-sm border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="text-label-md font-label-md text-on-surface font-semibold">Inbox (3 Unread)</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<div class="overflow-y-auto flex-1 custom-scrollbar">
+<!-- Unread Message Item -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container cursor-pointer transition-colors bg-primary-fixed-dim/20 border-l-4 border-l-primary relative group">
+<div class="absolute left-3 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="rounded border-outline text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="pl-6 group-hover:pl-8 transition-all">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-label-md text-on-surface font-bold truncate pr-2">Sarah Jenkins</h3>
+<span class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap text-[12px]">10:42 AM</span>
+</div>
+<h4 class="text-body-sm font-body-sm text-on-surface font-semibold truncate mb-1">Partnership Inquiry for 2025</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate text-[13px]">Hello RCDF team, we are interested in discussing potential collaborations for...</p>
+</div>
+</div>
+<!-- Unread Message Item (Active state) -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-highest cursor-pointer transition-colors border-l-4 border-l-primary relative group">
+<div class="absolute left-3 top-4">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="pl-8">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-label-md text-on-surface font-bold truncate pr-2">Michael Chen</h3>
+<span class="text-body-sm font-body-sm text-primary font-semibold whitespace-nowrap text-[12px]">Yesterday</span>
+</div>
+<h4 class="text-body-sm font-body-sm text-on-surface font-semibold truncate mb-1">Donation Receipt Missing</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate text-[13px]">I made a donation last week but haven't received the tax receipt yet...</p>
+</div>
+</div>
+<!-- Unread Message Item -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container cursor-pointer transition-colors bg-primary-fixed-dim/20 border-l-4 border-l-primary relative group">
+<div class="absolute left-3 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="rounded border-outline text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="pl-6 group-hover:pl-8 transition-all">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-label-md text-on-surface font-bold truncate pr-2">Elena Rodriguez</h3>
+<span class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap text-[12px]">Yesterday</span>
+</div>
+<h4 class="text-body-sm font-body-sm text-on-surface font-semibold truncate mb-1">Volunteer Application Question</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate text-[13px]">I am trying to fill out the form for the upcoming weekend event but it seems...</p>
+</div>
+</div>
+<!-- Read Message Item -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container cursor-pointer transition-colors border-l-4 border-l-transparent relative group">
+<div class="absolute left-3 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="rounded border-outline text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="pl-6 group-hover:pl-8 transition-all opacity-80">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-label-md text-on-surface truncate pr-2">David Kim</h3>
+<span class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap text-[12px]">Oct 24</span>
+</div>
+<h4 class="text-body-sm font-body-sm text-on-surface truncate mb-1">Website Accessibility Issue</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate text-[13px]">There is a contrast issue on the main donation page when viewed on mobile...</p>
+</div>
+</div>
+<!-- Read Message Item -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container cursor-pointer transition-colors border-l-4 border-l-transparent relative group">
+<div class="absolute left-3 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="rounded border-outline text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="pl-6 group-hover:pl-8 transition-all opacity-80">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-label-md font-label-md text-on-surface truncate pr-2">Emily Watson</h3>
+<span class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap text-[12px]">Oct 22</span>
+</div>
+<h4 class="text-body-sm font-body-sm text-on-surface truncate mb-1">Thank you!</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate text-[13px]">Just wanted to send a quick note to say the recent project update was inspiring...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Message Detail (Right Panel) -->
+<div class="hidden md:flex flex-col w-2/3 bg-surface-container-lowest">
+<!-- Detail Header -->
+<div class="p-md border-b border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<h2 class="text-headline-md font-headline-md text-on-surface font-semibold">Donation Receipt Missing</h2>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Reply">
+<span class="material-symbols-outlined" data-icon="reply">reply</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Forward">
+<span class="material-symbols-outlined" data-icon="forward">forward</span>
+</button>
+<button class="p-2 rounded-full hover:bg-error-container hover:text-error text-outline transition-colors" title="Delete">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-label-md font-label-md font-bold">
+                                    MC
+                                </div>
+<div>
+<p class="text-body-md font-body-md font-semibold text-on-surface">Michael Chen <span class="text-body-sm font-body-sm text-on-surface-variant font-normal">&lt;m.chen@example.com&gt;</span></p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">To: RCDF Support &lt;support@rcdf.org&gt;</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-body-sm font-body-sm text-on-surface-variant">Oct 25, 2023, 2:15 PM</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-semibold mt-1">
+                                    Support
+                                </span>
+</div>
+</div>
+</div>
+<!-- Detail Body -->
+<div class="p-md flex-1 overflow-y-auto">
+<div class="prose prose-sm max-w-none text-on-surface font-body-md leading-relaxed">
+<p class="mb-4">Hello RCDF Support Team,</p>
+<p class="mb-4">I hope this email finds you well.</p>
+<p class="mb-4">I made a one-time donation of $250 to the general fund last Thursday via the main website portal. The transaction cleared my bank account, but I have not yet received the official tax receipt via email.</p>
+<p class="mb-4">Could you please check your records and resend the receipt? I need it for my upcoming tax filings.</p>
+<p class="mb-4">My confirmation number was: <strong>RCDF-88492-TX</strong>.</p>
+<p class="mb-6">Thank you for your assistance and for all the great work the foundation does.</p>
+<p class="mb-1">Best regards,</p>
+<p class="font-semibold">Michael Chen</p>
+<p class="text-on-surface-variant text-body-sm">415-555-0198</p>
+</div>
+</div>
+<!-- Quick Reply Action -->
+<div class="p-md border-t border-outline-variant bg-surface-container-low">
+<button class="w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-sm font-body-sm text-on-surface-variant hover:border-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="reply">reply</span>
+                            Click here to reply...
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<style>
+        /* Custom Scrollbar for better UI aesthetics */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: theme('colors.outline-variant');
+            border-radius: 10px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background-color: theme('colors.outline');
+        }
+    </style>
+</body></html>

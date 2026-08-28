@@ -1,0 +1,272 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Add New Project - RCDF Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9fb",
+                        "on-surface": "#1b1c1e",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e3e2e5",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "inverse-on-surface": "#f2f0f3",
+                        "primary": "#000f22",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-container": "#ae835a",
+                        "surface-dim": "#dbd9dc",
+                        "primary-fixed": "#d2e4ff",
+                        "secondary-fixed-dim": "#88d982",
+                        "tertiary-container": "#381d00",
+                        "on-secondary-container": "#217128",
+                        "on-background": "#1b1c1e",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e9e8ea",
+                        "secondary-container": "#a0f399",
+                        "surface": "#faf9fb",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#b0c8eb",
+                        "surface-container-low": "#f5f3f6",
+                        "on-primary-container": "#768dad",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "tertiary": "#1a0b00",
+                        "on-secondary-fixed-variant": "#005312",
+                        "background": "#faf9fb",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "surface-container": "#efedf0",
+                        "on-surface-variant": "#43474d",
+                        "secondary": "#1b6d24",
+                        "inverse-surface": "#2f3033",
+                        "on-primary-fixed": "#001c37",
+                        "outline-variant": "#c4c6ce",
+                        "primary-container": "#0a2540",
+                        "outline": "#74777e",
+                        "surface-container-highest": "#e3e2e5",
+                        "on-tertiary-fixed": "#2d1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9fb;
+            color: #1b1c1e;
+        }
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.08);
+        }
+    </style>
+</head>
+<body class="flex bg-surface text-on-surface">
+<!-- Side Navigation Shell -->
+<nav class="bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant docked left-0 h-screen w-64 fixed flex flex-col h-full py-md">
+<div class="px-6 mb-8">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">RCDF Admin</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Management Console</p>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span> Home Management
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span> Services
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 text-label-md font-label-md scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span> Projects
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span> Messages
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+                </a>
+</li>
+</ul>
+<div class="px-6 mt-auto">
+<button class="w-full text-left flex items-center gap-2 text-label-md font-label-md text-error">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+             </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen relative">
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline docked top-0 sticky w-[calc(100%-16rem)] flex justify-between items-center px-md h-16 z-10">
+<div class="flex items-center gap-4">
+<button class="text-on-surface dark:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-headline-sm font-headline-sm text-on-surface dark:text-on-surface font-semibold">Projects</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface dark:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface dark:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="ml-4 w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A small, professional portrait photo of an admin user in a corporate setting. The lighting is soft and neutral, conveying trust and reliability within the modern corporate dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu_GPLiz1F0b85VjEdwBdecnIetdSbota2Znm6m7_xOxGJliQBAO6pek1lBj5VQ0om3izgRxIMeVI49CWnXLhNoUKqqKWGoRti2Rh4I17o1_EMFgttiI_vncea8em_U6f0D96tCrERZ_D6Qykyte2ZmLOBwTAXAce3xlU9jbyP9oN6PkrYfNKgAfHtVuiHJvor--hT7FrsrWidrSLcXBl_8OxMeJygjuiTMPylD59IsIXidYIBSaBz">
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-lg max-w-container-max mx-auto w-full">
+<div class="mb-md flex justify-between items-end">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Add New Project</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Create a new initiative to showcase in the RCDF portfolio.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">Cancel</button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity">Save Project</button>
+</div>
+</div>
+<!-- Grid Layout for Form Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Main Form Column -->
+<div class="lg:col-span-2 space-y-md">
+<!-- Details Card -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md border border-outline-variant">
+<h3 class="text-headline-md font-headline-md mb-6 border-b border-surface-container pb-4">Project Details</h3>
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="project-title">Project Title</label>
+<input class="w-full rounded-lg border border-outline-variant px-4 py-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="project-title" placeholder="e.g. Clean Water Initiative 2024" type="text">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="project-slug">URL Slug</label>
+<input class="w-full rounded-lg border border-outline-variant px-4 py-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="project-slug" placeholder="clean-water-2024" type="text">
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="project-location">Location</label>
+<input class="w-full rounded-lg border border-outline-variant px-4 py-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="project-location" placeholder="Region or City" type="text">
+</div>
+</div>
+</div>
+</div>
+<!-- Content Card -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md border border-outline-variant">
+<h3 class="text-headline-md font-headline-md mb-6 border-b border-surface-container pb-4">Project Content</h3>
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface">Description</label>
+<div class="border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<div class="bg-surface-container-low p-2 border-b border-outline-variant flex gap-2">
+<button class="p-1 hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-[18px]" data-icon="format_bold">format_bold</span></button>
+<button class="p-1 hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-[18px]" data-icon="format_italic">format_italic</span></button>
+<button class="p-1 hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-[18px]" data-icon="format_list_bulleted">format_list_bulleted</span></button>
+</div>
+<textarea class="w-full p-4 border-none text-body-md focus:ring-0 outline-none resize-y" placeholder="Provide a detailed description of the project goals, impact, and methodology..." rows="6"></textarea>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Column -->
+<div class="space-y-md">
+<!-- Settings Card -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md border border-outline-variant">
+<h3 class="text-headline-md font-headline-md mb-6 border-b border-surface-container pb-4">Settings</h3>
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="project-status">Status</label>
+<select class="w-full rounded-lg border border-outline-variant px-4 py-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none appearance-none bg-white" id="project-status">
+<option value="draft">Draft</option>
+<option value="planned">Planned</option>
+<option value="ongoing">Ongoing</option>
+<option value="completed">Completed</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="project-date">Start Date</label>
+<input class="w-full rounded-lg border border-outline-variant px-4 py-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="project-date" type="date">
+</div>
+</div>
+</div>
+<!-- Visuals Card -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md border border-outline-variant">
+<h3 class="text-headline-md font-headline-md mb-6 border-b border-surface-container pb-4">Visuals</h3>
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface">Hero Image</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors mb-2" data-icon="cloud_upload">cloud_upload</span>
+<p class="text-body-md font-body-md text-on-surface font-medium">Click to upload or drag and drop</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

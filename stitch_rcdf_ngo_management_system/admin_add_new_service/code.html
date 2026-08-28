@@ -1,0 +1,298 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Create New Service - RCDF Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9fb",
+                        "on-surface": "#1b1c1e",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e3e2e5",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "inverse-on-surface": "#f2f0f3",
+                        "primary": "#000f22",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-container": "#ae835a",
+                        "surface-dim": "#dbd9dc",
+                        "primary-fixed": "#d2e4ff",
+                        "secondary-fixed-dim": "#88d982",
+                        "tertiary-container": "#381d00",
+                        "on-secondary-container": "#217128",
+                        "on-background": "#1b1c1e",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e9e8ea",
+                        "secondary-container": "#a0f399",
+                        "surface": "#faf9fb",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#b0c8eb",
+                        "surface-container-low": "#f5f3f6",
+                        "on-primary-container": "#768dad",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "tertiary": "#1a0b00",
+                        "on-secondary-fixed-variant": "#005312",
+                        "background": "#faf9fb",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "surface-container": "#efedf0",
+                        "on-surface-variant": "#43474d",
+                        "secondary": "#1b6d24",
+                        "inverse-surface": "#2f3033",
+                        "on-primary-fixed": "#001c37",
+                        "outline-variant": "#c4c6ce",
+                        "primary-container": "#0a2540",
+                        "outline": "#74777e",
+                        "surface-container-highest": "#e3e2e5",
+                        "on-tertiary-fixed": "#2d1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- Sidebar Navigation Shell -->
+<nav class="bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant text-primary dark:text-on-primary-container docked left-0 h-screen w-64 fixed flex flex-col h-full py-md z-20">
+<div class="px-md pb-md border-b border-outline-variant mb-4">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">RCDF Admin</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Management Console</p>
+</div>
+<div class="flex flex-col gap-2 flex-grow overflow-y-auto">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                Home Management
+            </a>
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="business_center">business_center</span>
+                Services
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                Projects
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                Messages
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<div class="px-md mt-auto pt-4 border-t border-outline-variant">
+<button class="flex items-center gap-sm text-on-surface-variant px-4 py-3 w-full hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-grow flex flex-col ml-64 min-w-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline docked top-0 sticky w-full z-10">
+<div class="flex justify-between items-center px-md h-16">
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full transition-all flex items-center justify-center lg:hidden">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="text-headline-sm font-headline-sm text-on-surface dark:text-on-surface font-semibold">Services Management</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full transition-all flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full transition-all flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden ml-2 border border-outline-variant">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="Professional headshot of an administrator in a well-lit office setting. The lighting is soft and bright, emphasizing approachability and competence. The image is cropped tightly on the face and shoulders, suitable for a small circular avatar. The background is slightly blurred." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABF4srv9ysf1Y4MyI25JIxmJzLXEt27tuEqc1w-NaNuAWrOB1vM5LLaS33BYeH-HjW4YMpSg7F6H9dWTPsaiXGxuoE0vPD9X_dBWGZXuyqhYuTi2Ggs4lSx10B3EDD6_lxSKG7yMDQCt8lHQHbMtaGuej_L2QoJUQ3LtxzW4hfs_pV8oKT72GdVwxRfedlHa9X1ogKxywiB_zHtKfWM_sXhYFSF-L4vQgESO-YAcT5PyK8doC-jIRu">
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="p-md lg:p-lg lg:px-xl max-w-container-max mx-auto w-full">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
+<div>
+<h1 class="text-headline-md font-headline-md text-on-surface mb-1">Create New Service</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Add a new service offering to the RCDF portfolio.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-6 py-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                        Back to List
+                    </button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors font-label-md text-label-md flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                        Create Service
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Main Form Column -->
+<div class="lg:col-span-2 space-y-md">
+<!-- Basic Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-[0px_4px_20px_rgba(15,23,42,0.08)]">
+<h3 class="text-label-md font-label-md text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="info">info</span>
+                            Basic Information
+                        </h3>
+<div class="space-y-4">
+<div>
+<label class="block text-body-sm font-label-md text-on-surface-variant mb-1" for="service-title">Service Title *</label>
+<input class="w-full border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary bg-surface-container-lowest text-on-surface font-body-md" id="service-title" placeholder="e.g., Rural Healthcare Initiative" type="text">
+</div>
+<div>
+<label class="block text-body-sm font-label-md text-on-surface-variant mb-1" for="service-category">Category *</label>
+<select class="w-full border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary bg-surface-container-lowest text-on-surface font-body-md appearance-none" id="service-category">
+<option disabled="" selected="" value="">Select a category</option>
+<option value="healthcare">Healthcare</option>
+<option value="education">Education</option>
+<option value="infrastructure">Infrastructure</option>
+<option value="agriculture">Agriculture &amp; Livelihood</option>
+<option value="environment">Environmental Sustainability</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Description Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-[0px_4px_20px_rgba(15,23,42,0.08)]">
+<h3 class="text-label-md font-label-md text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="description">description</span>
+                            Description
+                        </h3>
+<div class="space-y-4">
+<div>
+<label class="block text-body-sm font-label-md text-on-surface-variant mb-1" for="short-summary">Short Summary</label>
+<textarea class="w-full border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary bg-surface-container-lowest text-on-surface font-body-md resize-none" id="short-summary" placeholder="A brief 1-2 sentence overview..." rows="2"></textarea>
+<p class="text-xs text-on-surface-variant mt-1 text-right">0/150 characters</p>
+</div>
+<div>
+<label class="block text-body-sm font-label-md text-on-surface-variant mb-1" for="detailed-description">Detailed Description *</label>
+<textarea class="w-full border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary bg-surface-container-lowest text-on-surface font-body-md" id="detailed-description" placeholder="Provide full details about the service offering, impact, and methodology..." rows="6"></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panel Column -->
+<div class="lg:col-span-1 space-y-md">
+<!-- Media Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-[0px_4px_20px_rgba(15,23,42,0.08)]">
+<h3 class="text-label-md font-label-md text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="image">image</span>
+                            Primary Image
+                        </h3>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center mb-3 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-primary-container" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<p class="text-body-sm font-label-md text-on-surface mb-1">Click to upload or drag and drop</p>
+<p class="text-xs text-on-surface-variant">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+</div>
+</div>
+<!-- Configuration Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-[0px_4px_20px_rgba(15,23,42,0.08)]">
+<h3 class="text-label-md font-label-md text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="tune">tune</span>
+                            Configuration
+                        </h3>
+<div class="space-y-6">
+<div>
+<label class="block text-body-sm font-label-md text-on-surface-variant mb-2">Display Icon</label>
+<div class="grid grid-cols-4 gap-2">
+<button class="aspect-square border border-primary bg-primary-fixed/20 rounded-lg flex items-center justify-center text-primary hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+</button>
+<button class="aspect-square border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</button>
+<button class="aspect-square border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+</button>
+<button class="aspect-square border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+</button>
+</div>
+</div>
+<hr class="border-outline-variant">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="text-body-sm font-label-md text-on-surface">Publish Service</h4>
+<p class="text-xs text-on-surface-variant">Make visible on the main website</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

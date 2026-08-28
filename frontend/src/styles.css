@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply scroll-smooth; }
+  body { @apply bg-[#fbfcfd] font-sans text-ink antialiased; }
+  h1, h2, h3 { @apply tracking-tight; }
+  button, a, input, textarea { @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy; }
+  a, button { @apply transition duration-200; }
+}
+
+/* Admin theme preference. Public pages keep their own bright RCDF style. */
+.admin-dark { color-scheme: dark; }
+.admin-dark body,
+.admin-dark .min-h-screen { background-color: #0f172a !important; color: #e5e7eb; }
+.admin-dark .bg-white,
+.admin-dark [class*="bg-[#faf9fb]"],
+.admin-dark [class*="bg-[#f5f3f6]"],
+.admin-dark .bg-slate-50 { background-color: #172033 !important; }
+.admin-dark .text-ink,
+.admin-dark .text-navy,
+.admin-dark [class*="text-[#000f22]"] { color: #f8fafc !important; }
+.admin-dark .text-muted,
+.admin-dark [class*="text-[#43474d]"] { color: #cbd5e1 !important; }
+.admin-dark .border-slate-200,
+.admin-dark [class*="border-[#c4c6ce]"] { border-color: #334155 !important; }
+
+/* Public website theme toggle. It does not change the admin dashboard. */
+.public-dark body { background: #0b1220; color: #e5e7eb; }
+.public-dark main { background: #0b1220; }
+.public-dark .bg-white,
+.public-dark .bg-mist,
+.public-dark [class*="bg-[#faf9fb]"],
+.public-dark [class*="bg-[#f5f3f6]"],
+.public-dark [class*="bg-[#eef4ef]"] { background-color: #111c2d !important; }
+.public-dark .text-ink,
+.public-dark .text-navy,
+.public-dark [class*="text-[#000f22]"] { color: #f8fafc !important; }
+.public-dark .text-muted,
+.public-dark [class*="text-[#43474d]"],
+.public-dark .text-slate-600 { color: #cbd5e1 !important; }
+.public-dark .border-slate-200,
+.public-dark [class*="border-[#c4c6ce]"] { border-color: #334155 !important; }
+.public-dark footer { background: #0f172a !important; color: #cbd5e1; }
+.public-dark button.fixed { background: #1e293b; border-color: #475569; color: #f8fafc; }
+
+/* On phones, the header uses the compact RCDF mark rather than the long logo. */
+@media (max-width: 767px) {
+  header img[src="/rcdf-logo.png"] {
+    content: url('/rcdf-logo-symbol.png');
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes soft-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(160, 243, 153, 0)); }
+  50% { filter: drop-shadow(0 8px 18px rgba(160, 243, 153, 0.2)); }
+}
+
+@layer utilities {
+  .page-entrance > section { animation: rise-in 650ms both cubic-bezier(.22, 1, .36, 1); }
+  .page-entrance > section:nth-child(2) { animation-delay: 80ms; }
+  .page-entrance > section:nth-child(3) { animation-delay: 140ms; }
+  .page-title { animation: rise-in 650ms both cubic-bezier(.22, 1, .36, 1); }
+  .reading-text { animation: rise-in 700ms 110ms both cubic-bezier(.22, 1, .36, 1); }
+  .hero-title { text-shadow: 0 3px 24px rgba(0, 15, 34, .35); animation: rise-in 700ms both cubic-bezier(.22, 1, .36, 1), soft-glow 5s 900ms ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .page-entrance > section, .page-title, .reading-text, .hero-title { animation: none; }
+  }
+}
+
+@layer components {
+  .shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+  .section { @apply py-16 sm:py-24; }
+  .eyebrow { @apply mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-green; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md; }
+  .btn-primary { @apply bg-navy text-white hover:bg-[#123755]; }
+  .btn-secondary { @apply bg-green text-white hover:bg-[#185d20]; }
+  .card { @apply overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.08)]; }
+  .field { @apply mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm transition placeholder:text-slate-400 focus:border-green focus:ring-4 focus:ring-green/10; }
+  .label { @apply text-sm font-semibold text-ink; }
+}

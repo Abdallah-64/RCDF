@@ -1,0 +1,1 @@
+export default { content: ['./index.html', './src/**/*.{js,jsx}'], theme: { extend: { colors: { navy: '#0A2540', green: '#217128', ink: '#0F172A', muted: '#64748B', mist: '#F8FAFC' }, fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] } } }, plugins: [] };

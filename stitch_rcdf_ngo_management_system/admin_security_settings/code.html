@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Security Settings - RCDF Admin</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3033",
+                    "secondary": "#1b6d24",
+                    "primary-container": "#0a2540",
+                    "on-tertiary-fixed-variant": "#613f1c",
+                    "background": "#faf9fb",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#a3f69c",
+                    "on-surface": "#1b1c1e",
+                    "on-secondary-fixed": "#002204",
+                    "surface-tint": "#49607e",
+                    "tertiary-fixed": "#ffdcbe",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#efedf0",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#43474d",
+                    "inverse-on-surface": "#f2f0f3",
+                    "on-primary-fixed": "#001c37",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#faf9fb",
+                    "surface-container-highest": "#e3e2e5",
+                    "on-primary-container": "#768dad",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#a0f399",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#217128",
+                    "inverse-primary": "#b0c8eb",
+                    "outline-variant": "#c4c6ce",
+                    "surface-bright": "#faf9fb",
+                    "tertiary-fixed-dim": "#eebd90",
+                    "on-tertiary-container": "#ae835a",
+                    "on-primary-fixed-variant": "#314865",
+                    "on-secondary-fixed-variant": "#005312",
+                    "outline": "#74777e",
+                    "primary": "#000f22",
+                    "surface-container-low": "#f5f3f6",
+                    "on-background": "#1b1c1e",
+                    "secondary-fixed-dim": "#88d982",
+                    "primary-fixed": "#d2e4ff",
+                    "tertiary": "#1a0b00",
+                    "surface-container-high": "#e9e8ea",
+                    "surface-variant": "#e3e2e5",
+                    "tertiary-container": "#381d00",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#2d1600",
+                    "surface-dim": "#dbd9dc",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b0c8eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "xs": "8px",
+                    "gutter": "24px",
+                    "lg": "40px",
+                    "base": "4px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #000f22;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #000f22;
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Shared Component: SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen py-md bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant docked left-0 w-64 fixed z-40">
+<!-- Header / Identity -->
+<div class="px-md mb-lg">
+<div class="flex items-center gap-sm mb-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm font-bold">R</div>
+<div>
+<h2 class="text-label-md font-label-md text-on-surface">RCDF Admin</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Management Console</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-base flex-1">
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-label-md font-label-md">Home Management</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="text-label-md font-label-md">Services</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-label-md font-label-md">Messages</span>
+</a>
+</li>
+<!-- Active State Navigation (Settings) -->
+<li class="">
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 scale-95 duration-150 shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</li>
+</ul>
+<!-- Footer CTA -->
+<div class="px-md mt-auto">
+<button class="w-full flex items-center justify-center gap-sm py-2 px-4 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="md:ml-64 w-full md:w-[calc(100%-16rem)] min-h-screen flex flex-col bg-surface">
+<!-- Shared Component: TopAppBar -->
+<header class="flex justify-between items-center px-md h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline docked top-0 sticky z-30">
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-sm font-headline-sm text-on-surface">Dashboard</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all mr-sm">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional administrator in a brightly lit modern office setting, representing an admin profile picture. Soft natural light, high-key white aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVGV46-AzGCnn4aOUJgXXRgbWXtpzpT1do9QCFIYnn6OM5mEgOjGEB6iZR25c3bNz8jKtYfih181oWglG--N-HqMtPCPZLE7yO8yk2Iu0Vl2Ag0XugO4bcmZ1J5ASDFJR3QrruLlqJ5yNlyHDAdN9lX6a3PyT8X95qPgVMsoAAVX63BcPwZa7k7qesR3qWIvp2lpDNzCnVHTsxw1Uj4Zlq2ucm4fYvQnfPkncPOAYKogzqhjSRlOV-">
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 p-gutter md:p-lg max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-lg">
+<h2 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-on-surface mb-2">Settings</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">Manage your account configurations and organizational preferences.</p>
+</div>
+<!-- Settings Layout: Master-Detail / Tabbed Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Inner Navigation (Settings Categories) -->
+<nav class="lg:col-span-3 flex flex-col gap-base border-r border-transparent lg:border-outline-variant/30 pr-0 lg:pr-sm">
+<a class="flex items-center gap-sm px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+<span class="text-body-md font-body-md font-medium group-hover:text-primary transition-colors">Profile Details</span>
+</a>
+<!-- Active Inner Tab -->
+<a class="flex items-center gap-sm px-4 py-3 rounded-lg bg-surface-container text-primary border-l-4 border-primary shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="text-body-md font-body-md font-semibold">Security</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications_active</span>
+<span class="text-body-md font-body-md font-medium group-hover:text-primary transition-colors">Notifications</span>
+</a>
+
+</nav>
+<!-- Security Settings Content Area -->
+<div class="lg:col-span-9 flex flex-col gap-md">
+<div class="mb-sm">
+<h3 class="text-headline-md font-headline-md text-on-surface">Security Configurations</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Protect your administrative access with strong passwords and multi-factor authentication.</p>
+</div>
+<!-- Password Card (Level 2 Ambient Depth) -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.08)] border border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<div class="flex items-center gap-xs mb-1">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 20px;">password</span>
+<h4 class="text-body-lg font-body-md font-semibold text-on-surface">Account Password</h4>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Last changed 4 months ago. We recommend updating it regularly.</p>
+</div>
+<div>
+<button class="w-full md:w-auto bg-primary text-on-primary px-6 py-2.5 rounded-lg text-label-md font-label-md hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap">
+                                Change Password
+                            </button>
+</div>
+</section>
+<!-- Two-Factor Authentication Card -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.08)] border border-outline-variant">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-md mb-6">
+<div>
+<div class="flex items-center gap-xs mb-1">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">verified_user</span>
+<h4 class="text-body-lg font-body-md font-semibold text-on-surface">Two-Factor Authentication (2FA)</h4>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-xl mt-2">
+                                    Add an extra layer of security to your account. When enabled, you'll be required to provide a unique code from your mobile device alongside your password when logging in.
+                                </p>
+</div>
+<!-- Custom Tailwind Toggle Switch -->
+<div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in mt-1 shrink-0">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out border-outline-variant" id="toggle2fa" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer transition-colors duration-200 ease-in" for="toggle2fa"></label>
+</div>
+</div>
+<!-- 2FA Status Indicator / Action -->
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant/50 flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Currently Enabled</span>
+</div>
+<button class="text-body-sm font-body-sm text-on-surface-variant underline hover:text-on-surface transition-colors">
+                                View Recovery Codes
+                            </button>
+</div>
+</section>
+<!-- Login History (Contextual Addition for Professionalism) -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(15,23,42,0.08)] border border-outline-variant mt-sm">
+<div class="mb-4">
+<h4 class="text-body-lg font-body-md font-semibold text-on-surface">Recent Login Activity</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Review devices that have recently accessed your admin account.</p>
+</div>
+<div class="flex flex-col border-t border-outline-variant/40 pt-2">
+<!-- Session 1 -->
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/20 last:border-0">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">computer</span>
+</div>
+<div>
+<p class="text-body-md font-body-md text-on-surface font-medium">MacBook Pro - Safari</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Nairobi, Kenya • IP: 192.168.1.1</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-medium bg-[#eebd90]/20 text-on-tertiary-container border border-[#eebd90]/50 mb-1">
+                                        Active Now
+                                    </span>
+</div>
+</div>
+<!-- Session 2 -->
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/20 last:border-0">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<p class="text-body-md font-body-md text-on-surface font-medium">iPhone 13 - Chrome</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Mombasa, Kenya • IP: 10.0.0.5</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-body-sm font-body-sm text-on-surface-variant">Yesterday, 14:32</p>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-2">
+<button class="text-label-md font-label-md text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+                                Log out of all other sessions <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- Script for toggle interaction (visual only) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('toggle2fa');
+            const statusText = toggle.closest('section').querySelector('.bg-surface-container-low span:nth-child(2)');
+            const statusDot = toggle.closest('section').querySelector('.bg-surface-container-low span:first-child');
+
+            toggle.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    statusText.textContent = 'Currently Enabled';
+                    statusDot.classList.replace('bg-outline', 'bg-secondary');
+                } else {
+                    statusText.textContent = 'Currently Disabled';
+                    statusDot.classList.replace('bg-secondary', 'bg-outline');
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

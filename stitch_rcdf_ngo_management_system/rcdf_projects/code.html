@@ -1,0 +1,304 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Public Projects - RCDF</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with Forms and Container Queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e8ea",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e3e2e5",
+                    "surface-bright": "#faf9fb",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#43474d",
+                    "inverse-primary": "#b0c8eb",
+                    "outline": "#74777e",
+                    "on-tertiary-fixed": "#2d1600",
+                    "on-primary-fixed": "#001c37",
+                    "surface-variant": "#e3e2e5",
+                    "surface-dim": "#dbd9dc",
+                    "outline-variant": "#c4c6ce",
+                    "on-tertiary-fixed-variant": "#613f1c",
+                    "background": "#faf9fb",
+                    "tertiary-container": "#381d00",
+                    "on-background": "#1b1c1e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#a3f69c",
+                    "surface-container-low": "#f5f3f6",
+                    "primary-fixed": "#d2e4ff",
+                    "surface": "#faf9fb",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#a0f399",
+                    "primary": "#000f22",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2f3033",
+                    "on-secondary-fixed": "#002204",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "on-secondary-fixed-variant": "#005312",
+                    "surface-tint": "#49607e",
+                    "tertiary-fixed": "#ffdcbe",
+                    "tertiary-fixed-dim": "#eebd90",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0a2540",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f2f0f3",
+                    "on-primary-container": "#768dad",
+                    "secondary-fixed-dim": "#88d982",
+                    "secondary": "#1b6d24",
+                    "tertiary": "#1a0b00",
+                    "on-surface": "#1b1c1e",
+                    "on-tertiary-container": "#ae835a",
+                    "on-secondary-container": "#217128",
+                    "surface-container": "#efedf0",
+                    "on-primary-fixed-variant": "#314865"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "sm": "16px",
+                    "container-max": "1280px",
+                    "xs": "8px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "md": "24px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .shadow-ambient {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.08);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" data-snapdom="injected-import"></head>
+<body class="bg-surface text-on-surface font-body-md antialiased flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<!-- Brand Logo -->
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed flex items-center">
+                RCDF
+            </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant dark:text-on-surface-variant text-body-md font-body-md hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200 font-medium tracking-tight" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant text-body-md font-body-md hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200 font-medium tracking-tight" href="#">About</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant text-body-md font-body-md hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200 font-medium tracking-tight" href="#">Services</a>
+<!-- Active Navigation: Projects -->
+<a class="text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary font-bold pb-1 text-body-md font-body-md opacity-80 transition-colors duration-200 font-medium tracking-tight" href="#">Projects</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant text-body-md font-body-md hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200 font-medium tracking-tight" href="#">Contact</a>
+</nav>
+<!-- Trailing Action -->
+<div class="hidden md:block">
+<button class="bg-primary text-on-primary rounded-lg px-sm py-xs text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200 font-semibold uppercase tracking-wider px-6">
+                    Support Us
+                </button>
+</div>
+<!-- Mobile Menu Icon (Placeholder) -->
+<div class="md:hidden flex items-center">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="flex flex-col md:flex-row gap-lg items-center">
+<div class="flex-1 space-y-sm">
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-primary">
+                        Recent Projects &amp; Activities
+                    </h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+                        Showcasing the tangible impact of RCDF's work across rural and urban landscapes. Explore our initiatives driving sustainable development and community empowerment.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Filters Section -->
+<section class="max-w-container-max mx-auto px-gutter pb-lg">
+<div class="bg-surface-container-low rounded-xl p-sm flex flex-col md:flex-row items-center gap-md border border-outline-variant/30">
+<!-- Search -->
+<div class="relative w-full md:w-1/3">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-sm font-body-sm" placeholder="Search projects..." type="text">
+</div>
+<!-- Category Chips -->
+<div class="flex flex-wrap gap-sm items-center w-full md:w-auto">
+<span class="text-label-md font-label-md text-on-surface-variant">Filter by:</span>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high transition-colors font-semibold uppercase tracking-tight">All</button>
+<button class="px-4 py-1.5 rounded-full bg-surface text-on-surface border border-outline-variant text-label-md font-label-md hover:bg-surface-container transition-colors font-semibold uppercase tracking-tight">Education</button>
+<button class="px-4 py-1.5 rounded-full bg-surface text-on-surface border border-outline-variant text-label-md font-label-md hover:bg-surface-container transition-colors font-semibold uppercase tracking-tight">Health</button>
+<button class="px-4 py-1.5 rounded-full bg-surface text-on-surface border border-outline-variant text-label-md font-label-md hover:bg-surface-container transition-colors font-semibold uppercase tracking-tight">Environment</button>
+</div>
+</div>
+</section>
+<!-- Dynamic Grid Section -->
+<section class="max-w-container-max mx-auto px-gutter pb-xl">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Featured Project (Spans 2 columns on desktop) -->
+<article class="col-span-1 md:col-span-2 bg-surface rounded-xl shadow-ambient overflow-hidden flex flex-col md:flex-row border border-outline-variant/20 group hover:shadow-lg transition-shadow duration-300">
+<div class="w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide angle photograph of a vast, modern solar panel array installed in a remote rural village setting. The sun is shining brightly in a clear blue sky, casting distinct shadows. The scene is illuminated by natural, high-key lighting, capturing the contrast between the advanced clean energy technology and the rustic landscape. Subtle accents of RCDF's signature forest green and deep navy can be seen on the equipment housing. The mood is optimistic and forward-looking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6ErHPNUosvX2fqF21Ga6O8vNau8FoBaHrnX3J2gfMfqw7sL4ABS7V1AzmFlAgJi5MQglpvFl42Ktdhthyk0fv6MZfULAKPe3EsZLqftkNC5NS6Cce55af3mLNtnuLGuy4OszBf__NcwF9Hdt5gJ_Ai2uTAwBoiwOUEtiiCE2SxeMtklhSBMnrcv24XYbMuI7igwb-kPTBBj6LwoulU5jrVeBRPDG0eo3S1wD4Sq2egwtHZ9g0zx8h">
+</div>
+<div class="w-full md:w-1/2 p-md flex flex-col justify-center space-y-sm relative">
+<div class="absolute top-md right-md bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-label-md">
+                            Completed
+                        </div>
+<span class="text-label-md font-label-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">eco</span>
+                            Environment
+                        </span>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary">
+                            Eco-Village Solar Project
+                        </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mb-md">
+                            Delivering sustainable and reliable energy solutions to over 500 households, empowering local businesses, and significantly reducing the community's carbon footprint.
+                        </p>
+<div class="flex items-center gap-xs text-body-sm font-body-sm text-outline mt-auto pt-sm border-t border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Location: Rural District
+                        </div>
+</div>
+</article>
+<!-- Project Card 2 -->
+<article class="bg-surface rounded-xl shadow-ambient overflow-hidden flex flex-col border border-outline-variant/20 group hover:shadow-lg transition-shadow duration-300">
+<div class="w-full h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A brightly lit, modern rural maternal health clinic constructed with clean, professional architecture. A welcoming entrance features large windows and soft, warm interior lighting contrasting with the bright daylight outside. The building incorporates RCDF's brand colors, with subtle deep navy trim and forest green landscaping nearby. Medical professionals in crisp attire are visible near the entrance. The atmosphere is safe, nurturing, and highly professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZZ_UpAZUQYkKVz8YVxpM9j_ioMpES5dGWDFk_F95kK6jEM_op90ljgydgZUVa3BYXWRT7m3ave2dXBWVQLBHuG-7MCua819j9U88ewAU2R_AwHboTdr2x0NM5X7cOATxUwzbmMBrMco9d_K3Z8oNbByMONzj5gDQzgkbGq6R93lMnAmLOqUQJDE1L_jDZ9RyMo4gJmq22qeR6RG6ngvSXFVtY6wtzp-zDycYweyq3oiJWXtNk1C7d">
+</div>
+<div class="p-md flex flex-col flex-grow space-y-sm relative">
+<div class="absolute top-md right-md bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-md font-label-md border border-outline-variant">
+                            Ongoing
+                        </div>
+<span class="text-label-md font-label-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                            Health
+                        </span>
+<h3 class="text-headline-md font-headline-md text-primary">
+                            Maternal Health Clinic
+                        </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant flex-grow">
+                            Constructing a state-of-the-art facility to provide essential prenatal and postnatal care, aiming to drastically reduce maternal mortality rates in the region.
+                        </p>
+<div class="flex items-center gap-xs text-body-sm font-body-sm text-outline mt-auto pt-sm border-t border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Location: Central Province
+                        </div>
+</div>
+</article>
+<!-- Project Card 3 -->
+<article class="bg-surface rounded-xl shadow-ambient overflow-hidden flex flex-col border border-outline-variant/20 group hover:shadow-lg transition-shadow duration-300">
+<div class="w-full h-48 overflow-hidden relative bg-primary-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" data-alt="A modern, well-equipped urban technology workshop designed for teenagers. The room features sleek desks arrayed with laptops and hardware kits, illuminated by contemporary overhead lighting and large windows casting natural light. The aesthetic is dynamic and educational, incorporating deep navy accent walls and forest green decorative elements to align with RCDF's identity. The space feels inspiring, organized, and ready to foster innovation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMG0CGrKQEcZ3qJGkfjeYvHeTR9tLEKCoO6wK5OoeaQd0wCJTa-_1a59HX6xHDea5zq9eV5SXxnLz_nT7pAlL2osvZAX6F89uGqaS86L1LNeG62BuiMGbU9Ds3oIGDzRCrjvbBQ_7Vb_JQwDIRzIeNsKoBZbqmsYkdXve_i6CcDR3QwpNKFa23eKJkYjyD508lDgMDgbDda3HcxacLRsnHLvHc_JQOF4Mc8LF_ZQlstfj-O1HBX1mX">
+</div>
+<div class="p-md flex flex-col flex-grow space-y-sm relative">
+<div class="absolute top-md right-md bg-surface-container text-on-surface px-3 py-1 rounded-full text-label-md font-label-md border border-outline-variant border-dashed">
+                            Planned
+                        </div>
+<span class="text-label-md font-label-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                            Education
+                        </span>
+<h3 class="text-headline-md font-headline-md text-primary">
+                            Tech for Teens Workshop
+                        </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant flex-grow">
+                            An upcoming intensive program designed to equip urban youth with critical digital literacy, coding skills, and technological competence for future career readiness.
+                        </p>
+<div class="flex items-center gap-xs text-body-sm font-body-sm text-outline mt-auto pt-sm border-t border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Location: Urban Center
+                        </div>
+</div>
+</article>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-primary-container text-on-primary-container mt-xl">
+<div class="max-w-container-max mx-auto px-gutter py-xl flex flex-col md:flex-row items-center justify-between gap-lg">
+<div class="space-y-sm max-w-xl text-center md:text-left">
+<h2 class="text-headline-lg font-headline-lg text-primary-fixed">Partner with us on our next initiative.</h2>
+<p class="text-body-lg font-body-lg">
+                        Your collaboration can amplify our impact. Join RCDF in driving sustainable change and empowering communities across the globe.
+                    </p>
+</div>
+<div>
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg text-label-md hover:bg-secondary-fixed-dim hover:text-secondary shadow-ambient transition-all font-semibold uppercase tracking-wider px-10">
+                        Get Involved Today
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-lowest full-width mt-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md px-gutter py-lg max-w-container-max mx-auto">
+<!-- Footer Brand -->
+<div class="col-span-1 md:col-span-1 flex flex-col space-y-sm">
+<div class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">
+                    RCDF
+                </div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                    Driving impactful change and sustainable development globally.
+                </p>
+</div>
+<!-- Footer Links (Empty Columns for spacing as per typical 4-col footer, placing links in last col) -->
+<div class="col-span-1 hidden md:block"></div>
+<div class="col-span-1 hidden md:block"></div>
+<div class="col-span-1 md:col-span-1 flex flex-col space-y-sm">
+<nav class="flex flex-col space-y-2">
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Volunteer</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="{{DATA:SCREEN:SCREEN_19}}">Admin</a></nav>
+</div>
+<!-- Copyright -->
+<div class="col-span-1 md:col-span-4 mt-sm pt-sm border-t border-outline-variant/30 text-body-sm font-body-sm text-on-surface-variant text-center md:text-left">
+                © 2024 RCDF. All rights reserved.
+            </div>
+</div>
+</footer>
+
+
+
+
+
+
+</body></html>

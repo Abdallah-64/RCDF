@@ -1,0 +1,1 @@
+export function Loading() { return <div className="shell py-24 text-center text-muted">Loading…</div>; } export function Notice({ children, error = false }) { return <div className={`rounded-lg p-4 text-sm ${error ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-800'}`}>{children}</div>; }

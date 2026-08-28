@@ -1,0 +1,288 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Contact Us - RCDF</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e9e8ea",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e3e2e5",
+                        "surface-bright": "#faf9fb",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#43474d",
+                        "inverse-primary": "#b0c8eb",
+                        "outline": "#74777e",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-primary-fixed": "#001c37",
+                        "surface-variant": "#e3e2e5",
+                        "surface-dim": "#dbd9dc",
+                        "outline-variant": "#c4c6ce",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "background": "#faf9fb",
+                        "tertiary-container": "#381d00",
+                        "on-background": "#1b1c1e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "surface-container-low": "#f5f3f6",
+                        "primary-fixed": "#d2e4ff",
+                        "surface": "#faf9fb",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#a0f399",
+                        "primary": "#000f22",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f3033",
+                        "on-secondary-fixed": "#002204",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-secondary-fixed-variant": "#005312",
+                        "surface-tint": "#49607e",
+                        "tertiary-fixed": "#ffdcbe",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0a2540",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f2f0f3",
+                        "on-primary-container": "#768dad",
+                        "secondary-fixed-dim": "#88d982",
+                        "secondary": "#1b6d24",
+                        "tertiary": "#1a0b00",
+                        "on-surface": "#1b1c1e",
+                        "on-tertiary-container": "#ae835a",
+                        "on-secondary-container": "#217128",
+                        "surface-container": "#efedf0",
+                        "on-primary-fixed-variant": "#314865"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "sm": "16px",
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "md": "24px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.08);
+        }
+        .form-input {
+            border: 1px solid #E2E8F0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background-color: #FFFFFF;
+            transition: all 0.2s ease-in-out;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #000f22; /* Primary */
+            box-shadow: 0 0 0 2px rgba(0, 15, 34, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-surface docked full-width top-0 sticky border-b border-outline-variant z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<!-- Brand Logo -->
+<div class="text-headline-md font-headline-md font-bold text-primary">
+                RCDF
+            </div>
+<!-- Navigation Links (Desktop) -->
+<div class="hidden md:flex gap-md h-full"><a class="flex items-center text-on-surface-variant hover:text-primary transition-colors duration-200 font-semibold tracking-tight" href="#">Home</a><a class="flex items-center text-on-surface-variant hover:text-primary transition-colors duration-200 font-semibold tracking-tight" href="#">About</a><a class="flex items-center text-on-surface-variant hover:text-primary transition-colors duration-200 font-semibold tracking-tight" href="#">Services</a><a class="flex items-center text-on-surface-variant hover:text-primary transition-colors duration-200 font-semibold tracking-tight" href="#">Projects</a><a class="flex items-center text-secondary border-b-2 border-secondary font-bold hover:text-secondary transition-colors duration-200 pt-1 tracking-tight" href="#">Contact</a></div>
+<!-- Trailing Action -->
+<div class="flex items-center">
+<button class="bg-primary text-on-primary font-semibold text-label-md px-8 py-3 rounded-lg hover:opacity-90 transition-opacity tracking-wide uppercase">Support Us</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-xl">
+<!-- Header Section -->
+<div class="max-w-2xl mb-lg">
+<h1 class="text-display-lg font-display-lg text-primary mb-sm">Get in Touch</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">We are here to listen and collaborate. Reach out to discuss partnerships, volunteer opportunities, or to learn more about our ongoing initiatives.</p>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl items-start">
+<!-- Contact Form (Left Column) -->
+<div class="lg:col-span-7 bg-surface-container-lowest ambient-shadow rounded-xl p-md lg:p-lg border border-surface-container-highest">
+<form class="flex flex-col gap-md" id="contact-form">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="name">Full Name</label>
+<input class="form-input text-body-md font-body-md" id="name" name="name" placeholder="Jane Doe" required="" type="text">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="email">Email Address</label>
+<input class="form-input text-body-md font-body-md" id="email" name="email" placeholder="jane@example.com" required="" type="email">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="phone">Phone Number (Optional)</label>
+<input class="form-input text-body-md font-body-md" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="subject">Subject</label>
+<select class="form-input text-body-md font-body-md appearance-none" id="subject" name="subject">
+<option value="">Select a topic</option>
+<option value="general">General Inquiry</option>
+<option value="partnership">Partnership</option>
+<option value="volunteer">Volunteering</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="message">Message</label>
+<textarea class="form-input text-body-md font-body-md resize-y" id="message" name="message" placeholder="How can we help you?" required="" rows="5"></textarea>
+</div>
+<button class="mt-sm bg-primary text-on-primary font-semibold text-label-md rounded-lg py-4 px-10 flex items-center justify-center gap-sm hover:opacity-90 transition-opacity self-start group uppercase tracking-wide" id="submit-btn" type="submit"><span id="btn-text" class="">Send Message</span><span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" style="font-variation-settings: 'FILL' 0;">send</span><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" fill="none" id="btn-spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path></svg></button>
+</form>
+</div>
+<!-- Contact Info & Map (Right Column) -->
+<div class="lg:col-span-5 flex flex-col gap-md">
+<!-- Info Card -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant flex flex-col gap-md">
+<h2 class="text-headline-sm font-headline-md text-primary border-b border-surface-container-highest pb-sm">Contact Information</h2>
+<div class="flex items-start gap-sm">
+<div class="bg-surface-container-highest p-2 rounded-full text-secondary flex items-center justify-center mt-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-primary">Headquarters</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">123 Impact Way, Suite 400<br>Geneva, CH-1201<br>Switzerland</p>
+</div>
+</div>
+<div class="flex items-start gap-sm">
+<div class="bg-surface-container-highest p-2 rounded-full text-secondary flex items-center justify-center mt-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-primary">Email Us</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">contact@rcdf-ngo.org</p>
+</div>
+</div>
+<div class="flex items-start gap-sm">
+<div class="bg-surface-container-highest p-2 rounded-full text-secondary flex items-center justify-center mt-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-primary">Call Us</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">+41 22 555 0199</p>
+<p class="text-body-sm font-body-sm text-outline mt-0.5 text-[12px]">Mon-Fri, 9am - 5pm CET</p>
+</div>
+</div>
+</div>
+<!-- Map Representation -->
+<div class="rounded-xl overflow-hidden ambient-shadow h-64 relative border border-outline-variant bg-surface-container-high">
+<img class="object-cover w-full h-full opacity-90" data-alt="A detailed map view of Geneva, Switzerland, highlighting a central business district with modern infrastructure and natural surroundings. The visual style should be a clean, high-contrast digital map aesthetic with a bright, light-mode palette emphasizing crisp grays and subtle greens, conveying a professional and global organizational presence." data-location="Geneva, Switzerland" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPUl_SIvAP_0MpSzbrK7Dsbq850vhAMu_hac748A9kRxj13-2dyL-QmW7P1R9HQX52AnuPbsJD27n_ZmO5sKoRIklPqF6ybm4WkfQudm5YfwUPBO1465lQ2uVjWr4hRbOyUQRE6k8l05kkGBUC_-1nMY36WJDOTAUVjkcW6fzQenEsyyPgxmE2mS5AAkgfEfz36v0MHs-VFxb80svGggSbXFtjRYRgB54qfc8Zx7fJoBVLJw--ivc6">
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container full-width mt-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md px-gutter py-lg max-w-container-max mx-auto">
+<!-- Brand Column -->
+<div class="flex flex-col gap-sm md:col-span-1">
+<div class="text-headline-sm font-headline-sm font-bold text-primary">
+                    RCDF
+                </div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">© 2024 RCDF. All rights reserved.</p>
+</div>
+<!-- Empty Columns for Grid Alignment (as per standard 4-col footer layout expectation) -->
+<div class="hidden md:block"></div>
+<div class="hidden md:block"></div>
+<!-- Links Column -->
+<div class="flex flex-col gap-sm md:items-end">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Volunteer</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors" href="{{DATA:SCREEN:SCREEN_19}}">Admin</a></div>
+</div>
+</footer>
+<script>
+        // Simple form interaction script
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const icon = btn.querySelector('.material-symbols-outlined');
+            const spinner = document.getElementById('btn-spinner');
+
+            // Simulate loading state
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            icon.classList.add('hidden');
+            btnText.textContent = 'Sending...';
+            spinner.classList.remove('hidden');
+
+            setTimeout(() => {
+                // Simulate success
+                btn.classList.remove('opacity-75', 'cursor-not-allowed', 'bg-primary');
+                btn.classList.add('bg-secondary', 'text-on-secondary');
+                spinner.classList.add('hidden');
+                icon.classList.remove('hidden');
+                icon.textContent = 'check_circle';
+                btnText.textContent = 'Message Sent';
+                
+                // Reset form
+                this.reset();
+
+                // Revert button after 3 seconds
+                setTimeout(() => {
+                    btn.classList.remove('bg-secondary', 'text-on-secondary');
+                    btn.classList.add('bg-primary');
+                    icon.textContent = 'send';
+                    btnText.textContent = 'Send Message';
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+
+
+
+
+
+
+</body></html>

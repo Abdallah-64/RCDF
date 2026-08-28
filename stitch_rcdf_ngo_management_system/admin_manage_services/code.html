@@ -1,0 +1,358 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RCDF Admin - Services Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0a2540",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-bright": "#faf9fb",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed-variant": "#005312",
+                        "secondary": "#1b6d24",
+                        "surface-container-high": "#e9e8ea",
+                        "inverse-surface": "#2f3033",
+                        "on-surface-variant": "#43474d",
+                        "on-secondary-container": "#217128",
+                        "on-secondary-fixed": "#002204",
+                        "surface-container": "#efedf0",
+                        "surface-variant": "#e3e2e5",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#1a0b00",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-primary-fixed-variant": "#314865",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dbd9dc",
+                        "on-background": "#1b1c1e",
+                        "background": "#faf9fb",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#381d00",
+                        "secondary-container": "#a0f399",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#faf9fb",
+                        "surface-container-low": "#f5f3f6",
+                        "on-primary-container": "#768dad",
+                        "tertiary-fixed": "#ffdcbe",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-container-highest": "#e3e2e5",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "error-container": "#ffdad6",
+                        "primary": "#000f22",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c1e",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-container": "#ae835a",
+                        "inverse-primary": "#b0c8eb",
+                        "outline": "#74777e",
+                        "secondary-fixed": "#a3f69c",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "inverse-on-surface": "#f2f0f3",
+                        "outline-variant": "#c4c6ce"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "container-max": "1280px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Ambient depth for cards */
+        .card-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low border-r border-outline-variant docked left-0 h-screen w-64 fixed flex flex-col h-full py-md z-20 hidden md:flex">
+<div class="px-md mb-8">
+<div class="flex items-center gap-3 mb-2">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A small, professional portrait photo of a corporate executive, representing an admin user. The person has a friendly but focused expression, wearing business casual attire. Lighting is bright, soft, and modern, set against a pristine white background. High resolution, 4k, professional corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW2tNTgqgP5JdET4wUQwhavUFsvA4WpJbxADFXtO7_zuS6ZPijG-uQYkTbj5kiHUX2XlNwstGzvH0S7OUEFIyk3SLboZnI4gZ_aJ2wYsypgdo-7vllCML8T8J-m1v976NBgs1oqthWycUIYQlyoi5-hnuyGO5CcfwTznvZwwgNDC--sA1EtbZSfJ3TlCcXivO9Dnb6KyiGlNx6_fgmsy2LYA_uwvuXOwAdWhlF-8CvPwzCr5kb4_QR">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary">RCDF Admin</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Management Console</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-sm text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                Home Management
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="business_center" data-weight="fill">business_center</span>
+                Services
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                Projects
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                Messages
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest rounded-lg transition-all text-label-md font-label-md mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="px-4 py-4 mt-auto border-t border-outline-variant mx-2">
+<button class="w-full flex items-center justify-center gap-sm text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content Area Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 w-full h-full relative">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant docked top-0 sticky w-full flex justify-between items-center px-md h-16 z-10">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:bg-surface-container rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-headline-sm font-headline-sm text-on-surface hidden md:block">Services</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-container rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<img class="w-8 h-8 rounded-full object-cover ml-2 md:hidden" data-alt="A small, professional portrait photo of a corporate executive, representing an admin user. The person has a friendly but focused expression, wearing business casual attire. Lighting is bright, soft, and modern, set against a pristine white background. High resolution, 4k, professional corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXWXUoS2kPeKTo2_BTIEiV0gZbAsQKIwXK66TcniH_1ZeOaP6Y22ryFoTORLiC8C_-pECVD2qGJDwcesREqC1LjzcHOHmxdmG5hVwFmj9ljkFK8JgWjx_dlr85T1fPWfqHi8ux5tOYtzbhqOMB6qwNFDiN2VO8gK-twMJOCLmPDDLT8zs4U_noK2S41VJUT0Gk7O1hMAqXBYiaissZPSwPUDEkK_N_zBmRc692tIE6LgJo2rVhxe5D">
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-4 md:p-lg bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
+<div>
+<h2 class="text-headline-md font-headline-md text-primary mb-1">Manage Services</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">View, edit, and create new services for the organization.</p>
+</div>
+<button class="bg-primary text-on-primary rounded-lg px-6 py-2.5 text-label-md font-label-md flex items-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Add New Service
+                    </button>
+</div>
+<!-- Filters & Search Bar -->
+<div class="bg-surface card-shadow rounded-lg p-4 mb-6 border border-outline-variant/30 flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Search services..." type="text">
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto">
+<span class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap">Filter by Status:</span>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary outline-none w-full md:w-auto">
+<option value="all">All Statuses</option>
+<option value="published">Published</option>
+<option value="draft">Draft</option>
+</select>
+</div>
+</div>
+<!-- Data Table (Bento Style) -->
+<div class="bg-surface card-shadow rounded-xl border border-outline-variant/30 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/50">
+<th class="px-6 py-4 text-label-md font-label-md font-semibold w-2/5">Service Title</th>
+<th class="px-6 py-4 text-label-md font-label-md font-semibold">Category</th>
+<th class="px-6 py-4 text-label-md font-label-md font-semibold">Status</th>
+<th class="px-6 py-4 text-label-md font-label-md font-semibold">Last Updated</th>
+<th class="px-6 py-4 text-label-md font-label-md font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 text-body-md font-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<span class="font-semibold text-primary">Community Health Outreach</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Healthcare</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-semibold bg-secondary-container text-on-secondary-container">
+                                            Published
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-body-sm font-body-sm">Oct 24, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">school</span>
+</div>
+<span class="font-semibold text-primary">Youth Education Support</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Education</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-semibold bg-surface-variant text-on-surface-variant">
+                                            Draft
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-body-sm font-body-sm">Nov 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<span class="font-semibold text-primary">Clean Water Initiative</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Infrastructure</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-semibold bg-secondary-container text-on-secondary-container">
+                                            Published
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-body-sm font-body-sm">Jan 05, 2024</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">volunteer_activism</span>
+</div>
+<span class="font-semibold text-primary">Disaster Relief Fund</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Emergency</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-semibold bg-surface-variant text-on-surface-variant">
+                                            Draft
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-body-sm font-body-sm">Feb 28, 2024</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="bg-surface-container-low border-t border-outline-variant/30 px-6 py-4 flex items-center justify-between">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Showing 1 to 4 of 12 services</span>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="text-body-sm font-body-sm font-semibold">1 / 3</span>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

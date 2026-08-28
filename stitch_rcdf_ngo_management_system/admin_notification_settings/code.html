@@ -1,0 +1,333 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Notification Settings - RCDF Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2f3033",
+                      "secondary": "#1b6d24",
+                      "primary-container": "#0a2540",
+                      "on-tertiary-fixed-variant": "#613f1c",
+                      "background": "#faf9fb",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#a3f69c",
+                      "on-surface": "#1b1c1e",
+                      "on-secondary-fixed": "#002204",
+                      "surface-tint": "#49607e",
+                      "tertiary-fixed": "#ffdcbe",
+                      "on-secondary": "#ffffff",
+                      "surface-container": "#efedf0",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#43474d",
+                      "inverse-on-surface": "#f2f0f3",
+                      "on-primary-fixed": "#001c37",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#faf9fb",
+                      "surface-container-highest": "#e3e2e5",
+                      "on-primary-container": "#768dad",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#a0f399",
+                      "error": "#ba1a1a",
+                      "on-secondary-container": "#217128",
+                      "inverse-primary": "#b0c8eb",
+                      "outline-variant": "#c4c6ce",
+                      "surface-bright": "#faf9fb",
+                      "tertiary-fixed-dim": "#eebd90",
+                      "on-tertiary-container": "#ae835a",
+                      "on-primary-fixed-variant": "#314865",
+                      "on-secondary-fixed-variant": "#005312",
+                      "outline": "#74777e",
+                      "primary": "#000f22",
+                      "surface-container-low": "#f5f3f6",
+                      "on-background": "#1b1c1e",
+                      "secondary-fixed-dim": "#88d982",
+                      "primary-fixed": "#d2e4ff",
+                      "tertiary": "#1a0b00",
+                      "surface-container-high": "#e9e8ea",
+                      "surface-variant": "#e3e2e5",
+                      "tertiary-container": "#381d00",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#2d1600",
+                      "surface-dim": "#dbd9dc",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#b0c8eb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "xs": "8px",
+                      "gutter": "24px",
+                      "lg": "40px",
+                      "base": "4px",
+                      "container-max": "1280px",
+                      "xl": "64px",
+                      "sm": "16px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #1b6d24;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #1b6d24;
+        }
+        .toggle-checkbox:focus + .toggle-label {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(27, 109, 36, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant text-primary dark:text-on-primary-container text-label-md font-label-md docked left-0 h-screen w-64 fixed flex flex-col h-full py-md hidden md:flex z-20">
+<div class="px-gutter mb-lg">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">RCDF Admin</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-base">Management Console</p>
+</div>
+<div class="flex-grow flex flex-col gap-base">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                Home Management
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span>
+                Services
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                Projects
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                Messages
+            </a>
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 hover:bg-surface-container-highest dark:hover:bg-surface-bright transition-all scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<div class="px-gutter mt-auto">
+<button class="w-full py-2 px-4 border border-outline rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-label-md text-label-md flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline text-on-surface dark:text-on-surface docked top-0 sticky w-full hidden md:flex justify-between items-center px-md h-16 z-10">
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="text-headline-sm font-headline-sm font-semibold">Settings</h2>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-xs border border-outline-variant">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A small circular profile picture of a professional administrator, neutral background, modern lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUE_VOlzceuyFwi-JblSoFZhZMdkFOzEX3BkusUtrmgvxuXRaZJeB46RkQ6w_9SBynvpUoPlOw5dVtbkJmL4axNt8QqbARxoi53bXUkt9VC4LpkaVdvaaDw51sjf9ZesUT5N4GxiY5udRwwOcqWWXF_ElRhDracVkk9raFcDfIEASsQ0dFLRtme0TIlmg_c0TwnkAmhjEn7ieQgmbW8M5ookTulpK0YxwPas6PzY8_XUArzTOkN0eb">
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 p-gutter md:p-lg bg-surface max-w-container-max mx-auto w-full">
+<div class="flex flex-col md:flex-row gap-lg">
+<!-- Settings Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0">
+<nav class="flex flex-col gap-base">
+<a class="px-4 py-3 text-body-md font-body-md text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">General Profile</a>
+<a class="px-4 py-3 text-body-md font-body-md text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">Security &amp; Passwords</a>
+<a class="px-4 py-3 text-body-md font-body-md bg-surface-container text-primary font-semibold rounded-lg border-l-4 border-secondary" href="#">Notifications</a>
+
+
+</nav>
+</aside>
+<!-- Settings Canvas -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.08)] border border-outline-variant overflow-hidden">
+<!-- Header Section -->
+<div class="p-lg border-b border-surface-container">
+<h3 class="text-headline-md font-headline-md font-semibold text-primary">Notification Preferences</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-xs">Manage how you receive alerts and updates from the RCDF system.</p>
+</div>
+<!-- Toggles Section -->
+<div class="p-lg flex flex-col gap-lg">
+<!-- Section: Email Notifications -->
+<div>
+<h4 class="text-label-md font-label-md text-on-surface font-semibold mb-md uppercase tracking-wider text-surface-tint">Email Notifications</h4>
+<div class="flex flex-col gap-md">
+<div class="flex items-center justify-between border-b border-surface-container pb-md">
+<div>
+<label class="text-body-md font-body-md font-medium text-on-surface block" for="toggle-email-daily">Daily Summary</label>
+<span class="text-body-sm font-body-sm text-on-surface-variant block mt-1">Receive a daily digest of all major platform activities.</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant z-10 transition-all duration-300" id="toggle-email-daily" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer transition-colors duration-300" for="toggle-email-daily"></label>
+</div>
+</div>
+<div class="flex items-center justify-between border-b border-surface-container pb-md">
+<div>
+<label class="text-body-md font-body-md font-medium text-on-surface block" for="toggle-email-projects">Project Updates</label>
+<span class="text-body-sm font-body-sm text-on-surface-variant block mt-1">Get notified when a project status changes or requires approval.</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant z-10 transition-all duration-300" id="toggle-email-projects" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer transition-colors duration-300" for="toggle-email-projects"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Dashboard Alerts -->
+<div class="mt-md">
+<h4 class="text-label-md font-label-md text-on-surface font-semibold mb-md uppercase tracking-wider text-surface-tint">Dashboard Alerts</h4>
+<div class="flex flex-col gap-md">
+<div class="flex items-center justify-between border-b border-surface-container pb-md">
+<div>
+<label class="text-body-md font-body-md font-medium text-on-surface block" for="toggle-dash-urgent">Urgent System Alerts</label>
+<span class="text-body-sm font-body-sm text-on-surface-variant block mt-1">Critical notifications regarding platform uptime or security.</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant z-10 transition-all duration-300" disabled="" id="toggle-dash-urgent" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-secondary cursor-pointer opacity-70" for="toggle-dash-urgent"></label>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<label class="text-body-md font-body-md font-medium text-on-surface block" for="toggle-dash-messages">New Messages</label>
+<span class="text-body-sm font-body-sm text-on-surface-variant block mt-1">In-app popups when a new priority message is received.</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant z-10 transition-all duration-300" id="toggle-dash-messages" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer transition-colors duration-300" for="toggle-dash-messages"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="bg-surface-container p-lg flex justify-end gap-sm rounded-b-xl border-t border-outline-variant">
+<button class="px-6 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-highest transition-colors">Discard Changes</button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">Save Preferences</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>
