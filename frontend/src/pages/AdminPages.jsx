@@ -191,6 +191,13 @@ export function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [needsSetup, setNeedsSetup] = useState(false);
+
+  useEffect(() => {
+    get('/auth/setup-status')
+      .then((res) => { if (res?.needsSetup) setNeedsSetup(true); })
+      .catch(() => {});
+  }, []);
 
   if (user) return <Navigate to="/admin/dashboard" replace />;
 
@@ -236,7 +243,7 @@ export function Login() {
             className="field mt-1"
             type="email"
             required
-            placeholder="admin@example.org"
+            placeholder="your@email.com"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
@@ -258,12 +265,14 @@ export function Login() {
           {saving ? 'Signing in…' : 'Sign in'}
         </button>
 
-        <div className="mt-6 border-t border-slate-200 pt-4 text-center text-xs text-muted flex items-center justify-between">
-          <span>First time setting up?</span>
-          <Link to="/admin/setup" className="font-bold text-[#002b5b] hover:underline">
-            Setup First Admin →
-          </Link>
-        </div>
+        {needsSetup && (
+          <div className="mt-6 border-t border-slate-200 pt-4 flex items-center justify-between text-xs text-muted">
+            <span>No admin account yet?</span>
+            <Link to="/admin/setup" className="font-bold text-[#002b5b] hover:underline">
+              Setup First Admin →
+            </Link>
+          </div>
+        )}
       </form>
     </main>
   );
