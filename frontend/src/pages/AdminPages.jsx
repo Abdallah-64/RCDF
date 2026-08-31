@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BarChart3, FileText, LogOut, Mail, Menu, Plus, Settings, Users, X } from 'lucide-react';
+import { BarChart3, FileText, LogOut, Mail, Menu, Plus, Settings, ShieldCheck, Sparkles, Users, X } from 'lucide-react';
 import { Link, NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { get, send } from '../services/api';
