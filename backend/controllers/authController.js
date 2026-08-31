@@ -21,8 +21,16 @@ const credentialsSchema = z.object({
 
 export async function setupStatus(req, res, next) {
   try {
-    const count = await User.countDocuments();
-    res.json({ success: true, data: { needsSetup: count === 0 } });
+    const users = await User.find().select('email name');
+    const needsSetup = users.length === 0 || (users.length === 1 && users[0].email === 'admin@example.org');
+    res.json({
+      success: true,
+      data: {
+        needsSetup,
+        existingCount: users.length,
+        adminEmail: users.length > 0 ? users[0].email : null,
+      },
+    });
   } catch (error) {
     next(error);
   }
@@ -30,22 +38,35 @@ export async function setupStatus(req, res, next) {
 
 export async function registerFirstUser(req, res, next) {
   try {
+    const { name, email, password } = setupSchema.parse(req.body);
     const count = await User.countDocuments();
-    if (count > 0) {
+    const existingDefault = await User.findOne({ email: 'admin@example.org' });
+
+    // Allow setup if no users exist, or if only the demo placeholder admin exists
+    if (count > 0 && !(count === 1 && existingDefault)) {
       return res.status(403).json({
         success: false,
-        message: 'Registration is closed. An administrator account already exists.',
+        message: 'An administrator account already exists. Please sign in with your email and password.',
       });
     }
 
-    const { name, email, password } = setupSchema.parse(req.body);
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await User.create({
-      name: name.trim(),
-      email: email.toLowerCase().trim(),
-      passwordHash,
-      role: 'admin',
-    });
+    let user;
+
+    if (count === 1 && existingDefault) {
+      existingDefault.name = name.trim();
+      existingDefault.email = email.toLowerCase().trim();
+      existingDefault.passwordHash = passwordHash;
+      existingDefault.role = 'admin';
+      user = await existingDefault.save();
+    } else {
+      user = await User.create({
+        name: name.trim(),
+        email: email.toLowerCase().trim(),
+        passwordHash,
+        role: 'admin',
+      });
+    }
 
     const token = jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN || '8h',
@@ -53,7 +74,7 @@ export async function registerFirstUser(req, res, next) {
 
     res.status(201).json({
       success: true,
-      message: 'First administrator account created successfully.',
+      message: 'Administrator account configured successfully.',
       data: {
         token,
         user: {

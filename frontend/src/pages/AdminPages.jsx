@@ -23,7 +23,7 @@ const messageFor = (error, fallback) => {
     .flatMap(([field, messages]) => messages?.map((message) => `${field}: ${message}`) || [])
     .join(' ');
 
-  return details || response?.message || fallback;
+  return details || response?.message || error?.message || fallback;
 };
 
 function AdminLayout({ children }) {
