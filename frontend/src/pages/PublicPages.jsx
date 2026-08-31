@@ -6,9 +6,34 @@ import { ServiceCard } from '../components/ContentCards';
 import { Footer, Header } from '../components/PublicChrome';
 import { Loading, Notice } from '../components/States';
 
+const defaultAbout = {
+  mission: 'To support vulnerable people and strengthen communities through respectful, practical, and sustainable action.',
+  vision: 'A future where every person has the opportunity, dignity, and support to thrive.',
+  story: 'Our story begins with a simple belief: lasting change is strongest when communities lead it.',
+  values: ['Dignity in every interaction', 'Community-led solutions', 'Accountability and trust', 'Practical, lasting impact'],
+  team: []
+};
+
 function usePublicData() {
-  const [data, setData] = useState(null); const [error, setError] = useState('');
-  useEffect(() => { Promise.all([get('/settings'), get('/pages/about'), get('/statistics'), get('/services')]).then(([settings, about, statistics, services]) => setData({ settings, about: about.content, statistics, services })).catch(() => setError('We could not load this content right now.')); }, []);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    Promise.all([
+      get('/settings').catch(() => ({})),
+      get('/pages/about').catch(() => ({ content: defaultAbout })),
+      get('/statistics').catch(() => []),
+      get('/services').catch(() => [])
+    ])
+      .then(([settings, about, statistics, services]) => {
+        setData({
+          settings: settings || {},
+          about: { ...defaultAbout, ...((about && (about.content || about)) || {}) },
+          statistics: Array.isArray(statistics) ? statistics : [],
+          services: Array.isArray(services) ? services : []
+        });
+      })
+      .catch(() => setError('We could not load this content right now.'));
+  }, []);
   return { data, error };
 }
 function Layout({ children }) { const { data, error } = usePublicData(); if (error) return <><Header /><div className="shell py-12"><Notice error>{error}</Notice></div></>; if (!data) return <Loading />; return <><Header />{children(data)}<Footer settings={data.settings} /></>; }

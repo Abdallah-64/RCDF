@@ -15,9 +15,46 @@ function ReferenceFooter({ settings }) {
   return <footer className="mt-16 bg-[#efedf0]"><div className="shell grid gap-8 py-12 md:grid-cols-3"><div><img className="h-24 w-auto object-contain" src={settings.logoUrl || '/rcdf-logo.png'} alt={`${settings.organizationName || 'RCDF'} logo`}/><p className="mt-4 max-w-md text-sm leading-6 text-slate-600">{settings.footerText || 'Empowering vulnerable communities and building sustainable futures through community-driven development.'}</p><p className="mt-5 text-xs text-slate-600">© {new Date().getFullYear()} RCDF. All rights reserved.</p></div><div><p className="text-sm font-bold text-[#000f22]">Contact</p><p className="mt-3 text-sm text-slate-600">{settings.email}</p><p className="mt-2 text-sm text-slate-600">{settings.phone}</p></div><div><p className="text-sm font-bold text-[#000f22]">Get involved</p><Link className="mt-3 block text-sm text-slate-600" to="/contact">Volunteer</Link><Link className="mt-2 block text-sm text-slate-600" to="/contact">Contact us</Link></div></div></footer>;
 }
 
+const defaultHome = {
+  heroTitle: 'Building stronger communities, together.',
+  heroDescription: 'RCDF partners with communities to create practical, lasting opportunities for people facing poverty and vulnerability.',
+  primaryCta: 'Explore our programs',
+  primaryLink: '/services',
+  secondaryCta: 'About RCDF',
+  secondaryLink: '/about',
+  heroImageUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1800&q=80',
+  programsTitle: 'How we support communities',
+  programsDescription: 'Our work is shaped by local priorities and delivered with care.'
+};
+
+const defaultAbout = {
+  mission: 'To support vulnerable people and strengthen communities through respectful, practical, and sustainable action.',
+  vision: 'A future where every person has the opportunity, dignity, and support to thrive.',
+  story: 'Our story begins with a simple belief: lasting change is strongest when communities lead it.',
+  values: ['Dignity in every interaction', 'Community-led solutions', 'Accountability and trust', 'Practical, lasting impact']
+};
+
 export default function HomeReference() {
   const [data, setData] = useState(null); const [error, setError] = useState('');
-  useEffect(() => { Promise.all([get('/settings'), get('/pages/home'), get('/pages/about'), get('/statistics'), get('/services')]).then(([settings, home, about, statistics, services]) => setData({ settings, home: home.content, about: about.content, statistics, services })).catch(() => setError('We could not load the homepage content.')); }, []);
+  useEffect(() => {
+    Promise.all([
+      get('/settings').catch(() => ({})),
+      get('/pages/home').catch(() => ({ content: defaultHome })),
+      get('/pages/about').catch(() => ({ content: defaultAbout })),
+      get('/statistics').catch(() => []),
+      get('/services').catch(() => [])
+    ])
+      .then(([settings, home, about, statistics, services]) => {
+        setData({
+          settings: settings || {},
+          home: { ...defaultHome, ...((home && home.content) || home) },
+          about: { ...defaultAbout, ...((about && about.content) || about) },
+          statistics: Array.isArray(statistics) ? statistics : [],
+          services: Array.isArray(services) ? services : []
+        });
+      })
+      .catch(() => setError('We could not load the homepage content.'));
+  }, []);
   if (!data) return error ? <><ReferenceHeader/><div className="shell py-16"><Notice error>{error}</Notice></div></> : <Loading/>;
   const { settings, home, about, statistics, services } = data;
   return <><ReferenceHeader/><main className="page-entrance">

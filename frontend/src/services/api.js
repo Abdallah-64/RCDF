@@ -1,10 +1,20 @@
 import axios from 'axios';
 
-// In local development, Vite proxies /api to the backend. This avoids browser
-// CORS issues when Vite selects a different local port such as 5174.
+const getBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL?.trim();
+  if (envUrl) {
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/+$/, '')}/api`;
+  }
+  // Fallback to deployed Render backend API URL if environment variable is not explicitly passed
+  if (import.meta.env.PROD) {
+    return 'https://rcdf-api.onrender.com/api';
+  }
+  return '/api';
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
-  timeout: 10000,
+  baseURL: getBaseUrl(),
+  timeout: 15000,
 });
 
 api.interceptors.request.use((config) => {
@@ -24,3 +34,4 @@ api.interceptors.response.use(undefined, (error) => {
 export const get = (url) => api.get(url).then((r) => r.data.data);
 export const send = (method, url, data) => api({ method, url, data }).then((r) => r.data);
 export default api;
+
