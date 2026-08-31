@@ -331,6 +331,29 @@ export function Messages() {
   const { data: items, error, load } = useRequest('/contact');
   const [selected, setSelected] = useState(null);
   const [toast, setToast] = useState('');
+  const detailRef = useRef(null);
+
+  useEffect(() => {
+    if (!selected) return;
+    const handlePointerDown = (e) => {
+      if (
+        detailRef.current &&
+        !detailRef.current.contains(e.target) &&
+        !e.target.closest('[data-message-item]')
+      ) {
+        setSelected(null);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelected(null);
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selected]);
 
   if (error) return <RequestState error={error} retry={load} />;
   if (!items) return <Loading />;
@@ -377,10 +400,11 @@ export function Messages() {
             <button
               key={item._id}
               type="button"
-              onClick={() => setSelected(item)}
+              data-message-item="true"
+              onClick={() => setSelected(selected?._id === item._id ? null : item)}
               className={`w-full rounded-xl border p-4 text-left transition hover:border-[#002b5b] ${
                 selected?._id === item._id
-                  ? 'border-[#002b5b] bg-[#002b5b]/5 shadow-sm'
+                  ? 'border-[#002b5b] bg-[#002b5b]/5 shadow-sm ring-2 ring-[#002b5b]/20'
                   : item.isRead
                   ? 'border-slate-200 bg-white opacity-70'
                   : 'border-slate-200 bg-white font-semibold shadow-sm'
@@ -398,7 +422,7 @@ export function Messages() {
 
         {/* Message detail */}
         {selected ? (
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div ref={detailRef} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-lg font-bold text-[#000f22]">{selected.subject}</h2>
@@ -407,7 +431,7 @@ export function Messages() {
                   {selected.phone && <span className="ml-2">· {selected.phone}</span>}
                 </p>
               </div>
-              <button type="button" onClick={() => setSelected(null)} className="shrink-0 rounded-lg p-1 hover:bg-slate-100">
+              <button type="button" onClick={() => setSelected(null)} className="shrink-0 rounded-lg p-1 hover:bg-slate-100" title="Close (or click outside)">
                 <X size={18} />
               </button>
             </div>
@@ -437,13 +461,20 @@ export function Messages() {
               >
                 Delete
               </button>
+              <button
+                type="button"
+                className="btn border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 ml-auto"
+                onClick={() => setSelected(null)}
+              >
+                Close
+              </button>
             </div>
           </div>
         ) : (
-          <div className="hidden items-center justify-center rounded-xl border border-dashed border-slate-200 text-muted lg:flex">
+          <div className="hidden items-center justify-center rounded-xl border border-dashed border-slate-200 text-muted lg:flex p-12">
             <div className="text-center">
               <Mail size={36} className="mx-auto opacity-30" />
-              <p className="mt-3 text-sm">Select a message to read it</p>
+              <p className="mt-3 text-sm">Select a message to view details</p>
             </div>
           </div>
         )}
