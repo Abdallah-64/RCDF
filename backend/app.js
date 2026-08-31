@@ -23,21 +23,29 @@ app.set('trust proxy', 1);
 app.use(helmet());
 
 // Configure CORS for local development and deployed frontend origins
-const allowedOrigins = process.env.CLIENT_URL
+const baseOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://rcdf-app-hg73.onrender.com'];
+const extraOrigins = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(',').map((url) => url.trim()).filter(Boolean)
-  : ['http://localhost:5173', 'http://localhost:3000'];
+  : [];
+const allowedOrigins = [...new Set([...baseOrigins, ...extraOrigins])];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl, server-to-server) or wildcard / match
-      if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (mobile apps, curl, server-to-server) or wildcard
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      // Also allow any *.onrender.com subdomain (for Render preview deployments)
+      if (/^https:\/\/[a-z0-9-]+\.onrender\.com$/.test(origin)) {
         return callback(null, true);
       }
       return callback(null, false);
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   })
 );
 
