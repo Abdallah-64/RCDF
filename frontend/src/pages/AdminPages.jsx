@@ -42,20 +42,9 @@ function useRequest(url) { const [data, setData] = useState(null); const [error,
 export function SetupAdmin() {
   const { user, registerFirstUser } = useAuth();
   const navigate = useNavigate();
-  const [needsSetup, setNeedsSetup] = useState(true);
-  const [checkingSetup, setCheckingSetup] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    get('/auth/setup-status')
-      .then((res) => {
-        setNeedsSetup(Boolean(res?.needsSetup));
-      })
-      .catch(() => setNeedsSetup(true))
-      .finally(() => setCheckingSetup(false));
-  }, []);
 
   if (user) return <Navigate to="/admin/dashboard" replace />;
 
@@ -85,53 +74,25 @@ export function SetupAdmin() {
     }
   };
 
-  if (checkingSetup) {
-    return (
-      <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
-        <Loading />
-      </main>
-    );
-  }
-
-  if (!needsSetup) {
-    return (
-      <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
-        <div className="card w-full max-w-md p-8 shadow-xl text-center">
-          <div className="flex justify-center">
-            <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
-          </div>
-          <div className="mt-5 mx-auto grid h-12 w-12 place-items-center rounded-full bg-blue-50 text-[#002b5b]">
-            <ShieldCheck size={28} />
-          </div>
-          <h1 className="mt-4 text-xl font-bold text-[#000f22]">Administrator Already Configured</h1>
-          <p className="mt-2 text-sm text-muted">
-            The initial administrator account has already been registered for RCDF. For security reasons, open registration is closed.
-          </p>
-          <Link to="/admin/login" className="btn btn-primary mt-6 block w-full text-center">
-            Sign In with Existing Account
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
       <form className="card w-full max-w-md p-8 shadow-xl" onSubmit={submit}>
         <div className="flex justify-center">
-          <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+          <div className="inline-flex rounded-2xl bg-white p-3 shadow-sm border border-slate-100">
+            <img className="h-16 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+          </div>
         </div>
-        <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
-          <Sparkles size={14} /> Initial Setup Mode
+        <div className="mt-4 flex justify-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
+            <Sparkles size={14} /> Administrator Setup
+          </span>
         </div>
-        <h1 className="mt-3 text-2xl font-extrabold text-[#000f22]">Create First Administrator</h1>
-        <p className="mt-1.5 text-sm text-muted">
-          Set up the main administrator account to manage your RCDF NGO portal.
+        <h1 className="mt-3 text-center text-2xl font-extrabold text-[#000f22]">
+          Create Administrator Account
+        </h1>
+        <p className="mt-1.5 text-center text-sm text-muted">
+          Fill in your details below to set up your RCDF administration portal.
         </p>
-
-        <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-5 text-emerald-900">
-          🔒 <b>One-time setup:</b> Once this initial account is created, public registration will be locked permanently.
-        </div>
 
         {error && (
           <div className="mt-4">
@@ -207,18 +168,9 @@ export function SetupAdmin() {
 export function Login() {
   const { user, login } = useAuth();
   const navigate = useNavigate();
-  const [needsSetup, setNeedsSetup] = useState(false);
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    get('/auth/setup-status')
-      .then((res) => {
-        if (res?.needsSetup) setNeedsSetup(true);
-      })
-      .catch(() => {});
-  }, []);
 
   if (user) return <Navigate to="/admin/dashboard" replace />;
 
@@ -241,7 +193,9 @@ export function Login() {
     <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
       <form className="card w-full max-w-md p-8 shadow-xl" onSubmit={submit}>
         <div className="flex justify-center">
-          <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+          <div className="inline-flex rounded-2xl bg-white p-3 shadow-sm border border-slate-100">
+            <img className="h-16 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+          </div>
         </div>
         <h1 className="mt-5 text-center text-2xl font-extrabold text-[#000f22]">
           Administrator Sign In
@@ -249,20 +203,6 @@ export function Login() {
         <p className="mt-1.5 text-center text-sm text-muted">
           Sign in to access the RCDF management console.
         </p>
-
-        {needsSetup && (
-          <div className="mt-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3.5 text-xs text-emerald-900 shadow-sm">
-            <div className="flex items-center gap-1.5 font-bold text-emerald-800">
-              <Sparkles size={15} /> First time setup available
-            </div>
-            <p className="mt-1 leading-5">
-              No administrator is registered yet. You can create the initial administrator account.
-            </p>
-            <Link to="/admin/setup" className="mt-2.5 inline-block font-bold text-[#002b5b] underline hover:text-black">
-              👉 Go to First Admin Setup →
-            </Link>
-          </div>
-        )}
 
         {error && (
           <div className="mt-4">
@@ -308,8 +248,6 @@ export function Login() {
     </main>
   );
 }
-
-
 
 export function Dashboard() {
   const { user } = useAuth();
