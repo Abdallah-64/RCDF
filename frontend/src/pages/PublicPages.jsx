@@ -66,4 +66,137 @@ export function About() {
 
 export function Collection() { return <Layout>{({ services }) => <main className="page-entrance"><section className="section bg-mist"><div className="shell"><p className="eyebrow">Services</p><h1 className="page-title text-4xl font-extrabold">Support shaped by community needs.</h1></div></section><section className="section"><div className="shell grid gap-6 md:grid-cols-2 lg:grid-cols-3">{services.map((item) => <ServiceCard key={item._id} item={item} />)}</div></section></main>}</Layout>; }
 export function Detail() { const { slug } = useParams(); const [item, setItem] = useState(null); useEffect(() => { get(`/services/${slug}`).then(setItem); }, [slug]); if (!item) return <Loading />; return <><Header /><main className="page-entrance section bg-mist"><div className="shell grid gap-8 md:grid-cols-2"><div><p className="eyebrow">Service</p><h1 className="page-title text-4xl font-extrabold">{item.title}</h1><p className="reading-text mt-6 leading-8 text-muted">{item.description}</p></div><img className="h-80 w-full rounded-2xl object-cover shadow-[0_10px_30px_rgba(15,23,42,.12)]" src={item.imageUrl} alt="" /></div></main><Footer /></>; }
-export function Contact() { const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' }); const [status, setStatus] = useState(''); const submit = async (event) => { event.preventDefault(); setStatus('Sending…'); try { await send('post', '/contact', form); setStatus('Thank you. Your message has been sent.'); setForm({ name: '', email: '', phone: '', subject: '', message: '' }); } catch { setStatus('Unable to send your message.'); } }; return <Layout>{({ settings }) => <main className="page-entrance"><section className="section bg-mist"><div className="shell"><p className="eyebrow">Contact RCDF</p><h1 className="page-title text-4xl font-extrabold">Let’s connect.</h1></div></section><section className="section"><div className="shell grid gap-12 md:grid-cols-2"><aside><h2 className="text-2xl font-bold">Contact information</h2><p className="mt-5 text-muted">For partnership, program, or general enquiries, please reach out.</p><p className="mt-6 text-sm"><b>Email</b><br />{settings.email}</p><p className="mt-4 text-sm"><b>Phone</b><br />{settings.phone}</p><p className="mt-4 text-sm"><b>Address</b><br />{settings.address}</p></aside><form className="card p-7" onSubmit={submit}><div className="grid gap-4 sm:grid-cols-2">{[['name', 'Name'], ['email', 'Email'], ['phone', 'Phone'], ['subject', 'Subject']].map(([key, label]) => <label className="label" key={key}>{label}<input className="field" required={key !== 'phone'} type={key === 'email' ? 'email' : 'text'} value={form[key]} onChange={(e) => setForm({ ...form, [key]: e.target.value })} /></label>)}</div><label className="label mt-4 block">Message<textarea className="field" rows="6" required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} /></label>{status && <div className="mt-4"><Notice error={status.includes('Unable')}>{status}</Notice></div>}<button className="btn btn-primary mt-5">Send message</button></form></div></section></main>}</Layout>; }
+export function Contact() {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [status, setStatus] = useState('');   // '' | 'sending' | 'success' | 'wakeup' | string(error)
+  const [sending, setSending] = useState(false);
+
+  const isNetworkError = (err) =>
+    !err.response && (err.code === 'ERR_NETWORK' || err.code === 'ECONNABORTED' || err.message?.toLowerCase().includes('network'));
+
+  const extractError = (err) => {
+    const data = err.response?.data;
+    const fieldErrors = data?.errors?.fieldErrors;
+    const details = fieldErrors
+      ? Object.entries(fieldErrors)
+          .flatMap(([, msgs]) => msgs || [])
+          .join(' ')
+      : null;
+    return details || data?.message || null;
+  };
+
+  const submit = async (event) => {
+    if (event) event.preventDefault();
+    setSending(true);
+    setStatus('sending');
+    try {
+      await send('post', '/contact', form);
+      setStatus('success');
+      setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch (err) {
+      if (isNetworkError(err)) {
+        setStatus('wakeup');
+      } else {
+        const msg = extractError(err);
+        setStatus(msg || 'error');
+      }
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <Layout>
+      {({ settings }) => (
+        <main className="page-entrance">
+          <section className="section bg-mist">
+            <div className="shell">
+              <p className="eyebrow">Contact RCDF</p>
+              <h1 className="page-title text-4xl font-extrabold">Let's connect.</h1>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="shell grid gap-12 md:grid-cols-2">
+              <aside>
+                <h2 className="text-2xl font-bold">Contact information</h2>
+                <p className="mt-5 text-muted">For partnership, program, or general enquiries, please reach out.</p>
+                {settings.email && <p className="mt-6 text-sm"><b>Email</b><br />{settings.email}</p>}
+                {settings.phone && <p className="mt-4 text-sm"><b>Phone</b><br />{settings.phone}</p>}
+                {settings.address && <p className="mt-4 text-sm"><b>Address</b><br />{settings.address}</p>}
+              </aside>
+
+              <form className="card p-7" onSubmit={submit}>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {[['name', 'Name'], ['email', 'Email'], ['phone', 'Phone (optional)'], ['subject', 'Subject']].map(([key, label]) => (
+                    <label className="label" key={key}>
+                      {label}
+                      <input
+                        className="field"
+                        required={key !== 'phone'}
+                        type={key === 'email' ? 'email' : 'text'}
+                        value={form[key]}
+                        onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                      />
+                    </label>
+                  ))}
+                </div>
+
+                <label className="label mt-4 block">
+                  Message
+                  <textarea
+                    className="field"
+                    rows="6"
+                    required
+                    minLength={10}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  />
+                </label>
+
+                {/* Status messages */}
+                {status === 'success' && (
+                  <div className="mt-4">
+                    <Notice>✅ Thank you! Your message has been sent. We will get back to you soon.</Notice>
+                  </div>
+                )}
+
+                {status === 'wakeup' && (
+                  <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                    <p className="font-bold">⏳ Server is starting up…</p>
+                    <p className="mt-1 text-xs leading-5">Our server was asleep (free hosting). Please wait 30–60 seconds and try again.</p>
+                    <button
+                      type="button"
+                      className="btn btn-primary mt-3 w-full text-sm"
+                      onClick={submit}
+                      disabled={sending}
+                    >
+                      {sending ? 'Sending…' : 'Try Again'}
+                    </button>
+                  </div>
+                )}
+
+                {status && status !== 'success' && status !== 'wakeup' && status !== 'sending' && (
+                  <div className="mt-4">
+                    <Notice error>
+                      ⚠️ {status === 'error' ? 'Something went wrong. Please try again.' : status}
+                    </Notice>
+                  </div>
+                )}
+
+                {status !== 'success' && (
+                  <button
+                    className="btn btn-primary mt-5 w-full"
+                    disabled={sending || status === 'wakeup'}
+                  >
+                    {sending ? 'Sending…' : 'Send message'}
+                  </button>
+                )}
+              </form>
+            </div>
+          </section>
+        </main>
+      )}
+    </Layout>
+  );
+}
