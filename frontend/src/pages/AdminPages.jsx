@@ -45,12 +45,17 @@ export function SetupAdmin() {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [wakingUp, setWakingUp] = useState(false);
 
   if (user) return <Navigate to="/admin/dashboard" replace />;
+
+  const isNetworkError = (err) =>
+    !err.response && (err.code === 'ERR_NETWORK' || err.code === 'ECONNABORTED' || err.message?.toLowerCase().includes('network'));
 
   const submit = async (e) => {
     e.preventDefault();
     setError('');
+    setWakingUp(false);
 
     if (form.password.length < 8) {
       return setError('Password must be at least 8 characters long.');
@@ -68,7 +73,12 @@ export function SetupAdmin() {
       });
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(messageFor(err, 'Unable to create administrator account.'));
+      if (isNetworkError(err)) {
+        setWakingUp(true);
+        setError('');
+      } else {
+        setError(messageFor(err, 'Unable to create administrator account.'));
+      }
     } finally {
       setSaving(false);
     }
@@ -93,6 +103,16 @@ export function SetupAdmin() {
         <p className="mt-1.5 text-center text-sm text-muted">
           Fill in your details below to set up your RCDF administration portal.
         </p>
+
+        {wakingUp && (
+          <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            <p className="font-bold">⏳ Server is waking up…</p>
+            <p className="mt-1 text-xs leading-5">The server was asleep (free hosting). Please wait 30–60 seconds, then click <strong>Try Again</strong>.</p>
+            <button type="button" className="btn btn-primary mt-3 w-full text-sm" onClick={submit}>
+              Try Again
+            </button>
+          </div>
+        )}
 
         {error && (
           <div className="mt-4">
