@@ -39,10 +39,10 @@ export function Protected({ children }) { const { user, checking } = useAuth(); 
 function RequestState({ error, retry }) { return <><Notice error>{error}</Notice><button className="btn btn-primary mt-4" onClick={retry}>Try again</button></>; }
 function useRequest(url) { const [data, setData] = useState(null); const [error, setError] = useState(''); const load = useCallback(() => { setError(''); get(url).then(setData).catch((e) => setError(messageFor(e, 'Unable to load this page. Check that the API is running, then sign in again.'))); }, [url]); useEffect(load, [load]); return { data, error, load }; }
 
-export function Login() {
-  const { user, login, registerFirstUser } = useAuth();
+export function SetupAdmin() {
+  const { user, registerFirstUser } = useAuth();
   const navigate = useNavigate();
-  const [needsSetup, setNeedsSetup] = useState(false);
+  const [needsSetup, setNeedsSetup] = useState(true);
   const [checkingSetup, setCheckingSetup] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
@@ -51,10 +51,173 @@ export function Login() {
   useEffect(() => {
     get('/auth/setup-status')
       .then((res) => {
+        setNeedsSetup(Boolean(res?.needsSetup));
+      })
+      .catch(() => setNeedsSetup(true))
+      .finally(() => setCheckingSetup(false));
+  }, []);
+
+  if (user) return <Navigate to="/admin/dashboard" replace />;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    if (form.password.length < 8) {
+      return setError('Password must be at least 8 characters long.');
+    }
+    if (form.password !== form.confirmPassword) {
+      return setError('Passwords do not match.');
+    }
+
+    setSaving(true);
+    try {
+      await registerFirstUser({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+      navigate('/admin/dashboard');
+    } catch (err) {
+      setError(messageFor(err, 'Unable to create administrator account.'));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (checkingSetup) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
+        <Loading />
+      </main>
+    );
+  }
+
+  if (!needsSetup) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
+        <div className="card w-full max-w-md p-8 shadow-xl text-center">
+          <div className="flex justify-center">
+            <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+          </div>
+          <div className="mt-5 mx-auto grid h-12 w-12 place-items-center rounded-full bg-blue-50 text-[#002b5b]">
+            <ShieldCheck size={28} />
+          </div>
+          <h1 className="mt-4 text-xl font-bold text-[#000f22]">Administrator Already Configured</h1>
+          <p className="mt-2 text-sm text-muted">
+            The initial administrator account has already been registered for RCDF. For security reasons, open registration is closed.
+          </p>
+          <Link to="/admin/login" className="btn btn-primary mt-6 block w-full text-center">
+            Sign In with Existing Account
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
+      <form className="card w-full max-w-md p-8 shadow-xl" onSubmit={submit}>
+        <div className="flex justify-center">
+          <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+        </div>
+        <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
+          <Sparkles size={14} /> Initial Setup Mode
+        </div>
+        <h1 className="mt-3 text-2xl font-extrabold text-[#000f22]">Create First Administrator</h1>
+        <p className="mt-1.5 text-sm text-muted">
+          Set up the main administrator account to manage your RCDF NGO portal.
+        </p>
+
+        <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-5 text-emerald-900">
+          🔒 <b>One-time setup:</b> Once this initial account is created, public registration will be locked permanently.
+        </div>
+
+        {error && (
+          <div className="mt-4">
+            <Notice error>{error}</Notice>
+          </div>
+        )}
+
+        <label className="label mt-5 block">
+          Full Name
+          <input
+            className="field mt-1"
+            type="text"
+            required
+            placeholder="e.g. Abdallah Adam"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+        </label>
+
+        <label className="label mt-4 block">
+          Admin Email Address
+          <input
+            className="field mt-1"
+            type="email"
+            required
+            placeholder="admin@example.org"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+        </label>
+
+        <label className="label mt-4 block">
+          Create Password
+          <input
+            className="field mt-1"
+            type="password"
+            required
+            minLength={8}
+            placeholder="At least 8 characters"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+        </label>
+
+        <label className="label mt-4 block">
+          Confirm Password
+          <input
+            className="field mt-1"
+            type="password"
+            required
+            minLength={8}
+            placeholder="Re-enter password"
+            value={form.confirmPassword}
+            onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+          />
+        </label>
+
+        <button className="btn btn-primary mt-6 w-full" disabled={saving}>
+          {saving ? 'Creating administrator…' : 'Create Administrator Account'}
+        </button>
+
+        <div className="mt-5 text-center text-xs text-muted">
+          Already have an account?{' '}
+          <Link to="/admin/login" className="font-bold text-[#002b5b] hover:underline">
+            Sign in here
+          </Link>
+        </div>
+      </form>
+    </main>
+  );
+}
+
+export function Login() {
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
+  const [needsSetup, setNeedsSetup] = useState(false);
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    get('/auth/setup-status')
+      .then((res) => {
         if (res?.needsSetup) setNeedsSetup(true);
       })
-      .catch(() => {})
-      .finally(() => setCheckingSetup(false));
+      .catch(() => {});
   }, []);
 
   if (user) return <Navigate to="/admin/dashboard" replace />;
@@ -64,36 +227,13 @@ export function Login() {
     setSaving(true);
     setError('');
 
-    if (needsSetup) {
-      if (form.password.length < 8) {
-        setSaving(false);
-        return setError('Password must be at least 8 characters.');
-      }
-      if (form.password !== form.confirmPassword) {
-        setSaving(false);
-        return setError('Passwords do not match.');
-      }
-      try {
-        await registerFirstUser({
-          name: form.name,
-          email: form.email,
-          password: form.password,
-        });
-        navigate('/admin/dashboard');
-      } catch (err) {
-        setError(messageFor(err, 'Unable to create administrator account.'));
-      } finally {
-        setSaving(false);
-      }
-    } else {
-      try {
-        await login({ email: form.email, password: form.password });
-        navigate('/admin/dashboard');
-      } catch (err) {
-        setError(messageFor(err, 'Invalid email or password.'));
-      } finally {
-        setSaving(false);
-      }
+    try {
+      await login({ email: form.email, password: form.password });
+      navigate('/admin/dashboard');
+    } catch (err) {
+      setError(messageFor(err, 'Invalid email or password.'));
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -103,18 +243,24 @@ export function Login() {
         <div className="flex justify-center">
           <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
         </div>
-        <h1 className="mt-5 text-center text-xl font-extrabold text-[#000f22]">
-          {needsSetup ? 'First Administrator Setup' : 'Administrator Sign In'}
+        <h1 className="mt-5 text-center text-2xl font-extrabold text-[#000f22]">
+          Administrator Sign In
         </h1>
         <p className="mt-1.5 text-center text-sm text-muted">
-          {needsSetup
-            ? 'No administrator found. Create the initial administrator account.'
-            : 'Sign in to access the RCDF management console.'}
+          Sign in to access the RCDF management console.
         </p>
 
         {needsSetup && (
-          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-5 text-emerald-800">
-            ℹ️ <b>Initial setup:</b> Once this first administrator account is created, open registration will be permanently closed.
+          <div className="mt-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3.5 text-xs text-emerald-900 shadow-sm">
+            <div className="flex items-center gap-1.5 font-bold text-emerald-800">
+              <Sparkles size={15} /> First time setup available
+            </div>
+            <p className="mt-1 leading-5">
+              No administrator is registered yet. You can create the initial administrator account.
+            </p>
+            <Link to="/admin/setup" className="mt-2.5 inline-block font-bold text-[#002b5b] underline hover:text-black">
+              👉 Go to First Admin Setup →
+            </Link>
           </div>
         )}
 
@@ -124,21 +270,7 @@ export function Login() {
           </div>
         )}
 
-        {needsSetup && (
-          <label className="label mt-4 block">
-            Full Name
-            <input
-              className="field mt-1"
-              type="text"
-              required
-              placeholder="e.g. Abdallah Adam"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-            />
-          </label>
-        )}
-
-        <label className="label mt-4 block">
+        <label className="label mt-5 block">
           Email Address
           <input
             className="field mt-1"
@@ -162,33 +294,21 @@ export function Login() {
           />
         </label>
 
-        {needsSetup && (
-          <label className="label mt-4 block">
-            Confirm Password
-            <input
-              className="field mt-1"
-              type="password"
-              required
-              placeholder="••••••••"
-              value={form.confirmPassword}
-              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-            />
-          </label>
-        )}
-
-        <button className="btn btn-primary mt-6 w-full" disabled={saving || checkingSetup}>
-          {saving
-            ? needsSetup
-              ? 'Creating account…'
-              : 'Signing in…'
-            : needsSetup
-            ? 'Create Administrator Account'
-            : 'Sign in'}
+        <button className="btn btn-primary mt-6 w-full" disabled={saving}>
+          {saving ? 'Signing in…' : 'Sign in'}
         </button>
+
+        <div className="mt-6 border-t border-slate-200 pt-4 text-center text-xs text-muted flex items-center justify-between">
+          <span>First time setting up?</span>
+          <Link to="/admin/setup" className="font-bold text-[#002b5b] hover:underline">
+            Setup First Admin →
+          </Link>
+        </div>
       </form>
     </main>
   );
 }
+
 
 
 export function Dashboard() {

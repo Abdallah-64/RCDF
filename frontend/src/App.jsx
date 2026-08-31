@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { About, Collection, Contact, Detail } from './pages/PublicPages';
 import Home from './pages/HomeReference';
-import { Dashboard, Login, ManageContent, Messages, PageEditor, Protected, SettingsPage } from './pages/AdminPages';
+import { Dashboard, Login, ManageContent, Messages, PageEditor, Protected, SettingsPage, SetupAdmin } from './pages/AdminPages';
 
 const admin = (element) => <Protected>{element}</Protected>;
 
@@ -40,6 +40,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/setup" element={<SetupAdmin />} />
+        <Route path="/admin/register" element={<Navigate to="/admin/setup" replace />} />
         <Route path="/admin/dashboard" element={admin(<Dashboard />)} />
         <Route path="/admin/services" element={admin(<ManageContent type="services" />)} />
         <Route path="/admin/content/home" element={admin(<PageEditor pageKey="home" />)} />
