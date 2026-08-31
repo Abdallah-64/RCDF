@@ -318,7 +318,130 @@ export function ManageContent({ type }) {
 }
 function Modal({ title, children, close }) { return <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 p-5"><div className="mx-auto my-10 max-w-xl rounded-xl bg-white p-6"><div className="mb-5 flex justify-between"><h2 className="text-xl font-bold">{title}</h2><button onClick={close}><X /></button></div>{children}</div></div>; }
 
-export function Messages() { const { data: items, error, load } = useRequest('/contact'); if (error) return <RequestState error={error} retry={load} />; if (!items) return <Loading />; return <><h1 className="text-2xl font-extrabold">Messages</h1><div className="mt-6 space-y-3">{items.map((item) => <article className="rounded-xl bg-white p-5 shadow-sm" key={item._id}><b>{item.subject}</b><p className="mt-1 text-sm text-muted">From {item.name} · {item.email}</p><p className="mt-4 text-sm">{item.message}</p></article>)}{!items.length && <p className="text-muted">No messages yet.</p>}</div></>; }
+export function Messages() {
+  const { data: items, error, load } = useRequest('/contact');
+  const [selected, setSelected] = useState(null);
+  const [toast, setToast] = useState('');
+
+  if (error) return <RequestState error={error} retry={load} />;
+  if (!items) return <Loading />;
+
+  const markRead = async (item) => {
+    try {
+      await send('patch', `/contact/${item._id}/read`);
+      setToast('Marked as read.');
+      load();
+    } catch { setToast('Unable to update message.'); }
+  };
+
+  const remove = async (item) => {
+    try {
+      await send('delete', `/contact/${item._id}`);
+      if (selected?._id === item._id) setSelected(null);
+      setToast('Message deleted.');
+      load();
+    } catch { setToast('Unable to delete message.'); }
+  };
+
+  const replyUrl = (item) =>
+    `mailto:${encodeURIComponent(item.email)}?subject=${encodeURIComponent(`Re: ${item.subject}`)}&body=${encodeURIComponent(`\n\n--- Original message from ${item.name} ---\n${item.message}`)}`;
+
+  return (
+    <>
+      <AdminToast message={toast} close={() => setToast('')} />
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-extrabold">Messages</h1>
+        <span className="text-sm text-muted">{items.length} message{items.length !== 1 ? 's' : ''}</span>
+      </div>
+
+      {!items.length && (
+        <div className="mt-10 flex flex-col items-center gap-3 text-center text-muted">
+          <Mail size={40} className="opacity-30" />
+          <p>No messages yet. Contact form submissions will appear here.</p>
+        </div>
+      )}
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-[320px_1fr]">
+        {/* Message list */}
+        <div className="space-y-2">
+          {items.map((item) => (
+            <button
+              key={item._id}
+              type="button"
+              onClick={() => setSelected(item)}
+              className={`w-full rounded-xl border p-4 text-left transition hover:border-[#002b5b] ${
+                selected?._id === item._id
+                  ? 'border-[#002b5b] bg-[#002b5b]/5 shadow-sm'
+                  : item.isRead
+                  ? 'border-slate-200 bg-white opacity-70'
+                  : 'border-slate-200 bg-white font-semibold shadow-sm'
+              }`}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <p className="truncate text-sm font-bold text-[#000f22]">{item.subject}</p>
+                {!item.isRead && <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#002b5b]" />}
+              </div>
+              <p className="mt-1 truncate text-xs text-muted">{item.name} · {item.email}</p>
+              <p className="mt-1.5 line-clamp-2 text-xs text-slate-500">{item.message}</p>
+            </button>
+          ))}
+        </div>
+
+        {/* Message detail */}
+        {selected ? (
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-bold text-[#000f22]">{selected.subject}</h2>
+                <p className="mt-1 text-sm text-muted">
+                  From <span className="font-semibold text-[#000f22]">{selected.name}</span> · <a href={`mailto:${selected.email}`} className="text-[#002b5b] underline">{selected.email}</a>
+                  {selected.phone && <span className="ml-2">· {selected.phone}</span>}
+                </p>
+              </div>
+              <button type="button" onClick={() => setSelected(null)} className="shrink-0 rounded-lg p-1 hover:bg-slate-100">
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="mt-5 rounded-xl bg-slate-50 p-4 text-sm leading-7 whitespace-pre-wrap">{selected.message}</div>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a
+                href={replyUrl(selected)}
+                className="btn btn-primary inline-flex items-center gap-2"
+              >
+                <Mail size={16} /> Reply via Email
+              </a>
+              {!selected.isRead && (
+                <button
+                  type="button"
+                  className="btn border border-slate-300 bg-white text-ink"
+                  onClick={() => { markRead(selected); setSelected({ ...selected, isRead: true }); }}
+                >
+                  Mark as Read
+                </button>
+              )}
+              <button
+                type="button"
+                className="btn border border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                onClick={() => remove(selected)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="hidden items-center justify-center rounded-xl border border-dashed border-slate-200 text-muted lg:flex">
+            <div className="text-center">
+              <Mail size={36} className="mx-auto opacity-30" />
+              <p className="mt-3 text-sm">Select a message to read it</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
 function AccountSettings() {
   const { user, logout } = useAuth(); const [form, setForm] = useState({ email: user?.email || '', currentPassword: '', newPassword: '', confirmPassword: '' }); const [notice, setNotice] = useState(''); const [saving, setSaving] = useState(false);
   const save = async (event) => { event.preventDefault(); if (form.newPassword && form.newPassword !== form.confirmPassword) { setNotice('New password confirmation does not match.'); return; } setSaving(true); try { await send('patch', '/auth/credentials', { currentPassword: form.currentPassword, email: form.email === user?.email ? undefined : form.email, newPassword: form.newPassword || undefined }); setNotice('Account details updated. Please sign in again with your new details.'); window.setTimeout(logout, 1600); } catch (error) { setNotice(messageFor(error, 'Unable to update account details.')); } finally { setSaving(false); } };
@@ -346,13 +469,38 @@ export function PageEditor({ pageKey }) { const { data, error, load } = useReque
 function HomeContentEditor({ content }) {
   const [value, setValue] = useState(content);
   const [notice, setNotice] = useState('');
+  const [saving, setSaving] = useState(false);
   useEffect(() => setValue(content), [content]);
-  const update = (key, nextValue) => setValue({ ...value, [key]: nextValue });
-  const save = async () => { try { await send('put', '/pages/home', { content: value }); setNotice('Home page saved successfully.'); } catch (error) { setNotice(messageFor(error, 'Unable to save the Home page.')); } };
-  const fields = [
+  const update = (key, nextValue) => setValue((v) => ({ ...v, [key]: nextValue }));
+
+  const selectHeroImage = (event) => {
+    const image = event.target.files?.[0];
+    if (!image) return;
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(image.type) || image.size > 800 * 1024) {
+      setNotice('Choose a PNG, JPEG, or WebP image smaller than 800 KB.');
+      event.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => update('heroImageUrl', reader.result);
+    reader.readAsDataURL(image);
+  };
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      await send('put', '/pages/home', { content: value });
+      setNotice('Home page saved successfully.');
+    } catch (error) {
+      setNotice(messageFor(error, 'Unable to save the Home page.'));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const textFields = [
     ['heroTitle', 'Hero heading', 'textarea'],
     ['heroDescription', 'Hero description', 'textarea'],
-    ['heroImageUrl', 'Hero image URL', 'text'],
     ['primaryCta', 'Primary button text', 'text'],
     ['primaryLink', 'Primary button link', 'text'],
     ['secondaryCta', 'Secondary button text', 'text'],
@@ -360,7 +508,79 @@ function HomeContentEditor({ content }) {
     ['programsTitle', 'Services section heading', 'text'],
     ['programsDescription', 'Services section description', 'textarea'],
   ];
-  return <><h1 className="text-2xl font-extrabold">Home content</h1><p className="mt-2 text-sm text-muted">Update the homepage text and links. These values are saved in the backend and shown on the public website.</p><div className="mt-6 max-w-3xl space-y-5">{fields.map(([key, label, type]) => <label className="label block" key={key}>{label}{type === 'textarea' ? <textarea className="field" rows="4" value={value[key] || ''} onChange={(event) => update(key, event.target.value)} /> : <input className="field" type={key === 'heroImageUrl' ? 'url' : 'text'} value={value[key] || ''} onChange={(event) => update(key, event.target.value)} />}</label>)}</div>{notice && <div className="mt-4"><Notice error={notice.includes('Unable')}>{notice}</Notice></div>}<button className="btn btn-primary mt-5" onClick={save}>Save Home page</button></>;
+
+  return (
+    <>
+      <h1 className="text-2xl font-extrabold">Home content</h1>
+      <p className="mt-2 text-sm text-muted">Update homepage text, hero image, and links shown on the public website.</p>
+
+      <div className="mt-6 max-w-3xl space-y-5">
+        {/* Hero image upload */}
+        <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5">
+          <p className="text-sm font-bold text-ink">Hero image (main photo)</p>
+          <p className="mt-1 text-xs text-muted">Upload a PNG, JPEG, or WebP photo (max 800 KB). This is the large background image shown at the top of the home page.</p>
+          <input
+            className="mt-3 block w-full text-sm text-muted file:mr-4 file:rounded-lg file:border-0 file:bg-navy file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-[#123755]"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            onChange={selectHeroImage}
+          />
+          {value.heroImageUrl && (
+            <div className="mt-4">
+              <img
+                className="h-40 w-full rounded-lg object-cover shadow-sm"
+                src={value.heroImageUrl}
+                alt="Hero preview"
+              />
+              <div className="mt-2 flex items-center gap-4">
+                <button
+                  type="button"
+                  className="text-sm font-bold text-red-700 hover:underline"
+                  onClick={() => update('heroImageUrl', '')}
+                >
+                  Remove image
+                </button>
+                <span className="text-xs text-muted">Or paste an image URL:</span>
+                <input
+                  className="field flex-1 text-xs"
+                  type="url"
+                  placeholder="https://…"
+                  value={value.heroImageUrl?.startsWith('data:') ? '' : value.heroImageUrl || ''}
+                  onChange={(e) => update('heroImageUrl', e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+          {!value.heroImageUrl && (
+            <div className="mt-3 flex items-center gap-2">
+              <span className="text-xs text-muted">Or paste an image URL:</span>
+              <input
+                className="field flex-1 text-xs"
+                type="url"
+                placeholder="https://…"
+                value={value.heroImageUrl || ''}
+                onChange={(e) => update('heroImageUrl', e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+
+        {textFields.map(([key, label, type]) => (
+          <label className="label block" key={key}>
+            {label}
+            {type === 'textarea'
+              ? <textarea className="field" rows={4} value={value[key] || ''} onChange={(e) => update(key, e.target.value)} />
+              : <input className="field" type="text" value={value[key] || ''} onChange={(e) => update(key, e.target.value)} />}
+          </label>
+        ))}
+      </div>
+
+      {notice && <div className="mt-4"><Notice error={notice.includes('Unable') || notice.includes('image')}>{notice}</Notice></div>}
+      <button className="btn btn-primary mt-5" onClick={save} disabled={saving}>
+        {saving ? 'Saving…' : 'Save Home page'}
+      </button>
+    </>
+  );
 }
 
 function AboutEditor({ content }) {
