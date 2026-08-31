@@ -39,7 +39,157 @@ export function Protected({ children }) { const { user, checking } = useAuth(); 
 function RequestState({ error, retry }) { return <><Notice error>{error}</Notice><button className="btn btn-primary mt-4" onClick={retry}>Try again</button></>; }
 function useRequest(url) { const [data, setData] = useState(null); const [error, setError] = useState(''); const load = useCallback(() => { setError(''); get(url).then(setData).catch((e) => setError(messageFor(e, 'Unable to load this page. Check that the API is running, then sign in again.'))); }, [url]); useEffect(load, [load]); return { data, error, load }; }
 
-export function Login() { const { user, login } = useAuth(); const navigate = useNavigate(); const [form, setForm] = useState({ email: '', password: '' }); const [error, setError] = useState(''); const [saving, setSaving] = useState(false); if (user) return <Navigate to="/admin/dashboard" replace />; const submit = async (e) => { e.preventDefault(); setSaving(true); setError(''); try { await login(form); navigate('/admin/dashboard'); } catch (err) { setError(messageFor(err, 'Unable to sign in.')); } finally { setSaving(false); } }; return <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5"><form className="card w-full max-w-md p-8" onSubmit={submit}><img className="h-24 w-auto" src="/rcdf-logo.png" alt="RCDF logo" /><p className="mt-4 text-sm text-muted">Sign in to manage the website.</p>{error && <div className="mt-4"><Notice error>{error}</Notice></div>}<label className="label mt-5 block">Email<input className="field" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label><label className="label mt-4 block">Password<input className="field" type="password" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} /></label><button className="btn btn-primary mt-6 w-full" disabled={saving}>{saving ? 'Signing in…' : 'Sign in'}</button></form></main>; }
+export function Login() {
+  const { user, login, registerFirstUser } = useAuth();
+  const navigate = useNavigate();
+  const [needsSetup, setNeedsSetup] = useState(false);
+  const [checkingSetup, setCheckingSetup] = useState(true);
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    get('/auth/setup-status')
+      .then((res) => {
+        if (res?.needsSetup) setNeedsSetup(true);
+      })
+      .catch(() => {})
+      .finally(() => setCheckingSetup(false));
+  }, []);
+
+  if (user) return <Navigate to="/admin/dashboard" replace />;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    setError('');
+
+    if (needsSetup) {
+      if (form.password.length < 8) {
+        setSaving(false);
+        return setError('Password must be at least 8 characters.');
+      }
+      if (form.password !== form.confirmPassword) {
+        setSaving(false);
+        return setError('Passwords do not match.');
+      }
+      try {
+        await registerFirstUser({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        });
+        navigate('/admin/dashboard');
+      } catch (err) {
+        setError(messageFor(err, 'Unable to create administrator account.'));
+      } finally {
+        setSaving(false);
+      }
+    } else {
+      try {
+        await login({ email: form.email, password: form.password });
+        navigate('/admin/dashboard');
+      } catch (err) {
+        setError(messageFor(err, 'Invalid email or password.'));
+      } finally {
+        setSaving(false);
+      }
+    }
+  };
+
+  return (
+    <main className="grid min-h-screen place-items-center bg-[#faf9fb] p-5">
+      <form className="card w-full max-w-md p-8 shadow-xl" onSubmit={submit}>
+        <div className="flex justify-center">
+          <img className="h-20 w-auto object-contain" src="/rcdf-logo.png" alt="RCDF logo" />
+        </div>
+        <h1 className="mt-5 text-center text-xl font-extrabold text-[#000f22]">
+          {needsSetup ? 'First Administrator Setup' : 'Administrator Sign In'}
+        </h1>
+        <p className="mt-1.5 text-center text-sm text-muted">
+          {needsSetup
+            ? 'No administrator found. Create the initial administrator account.'
+            : 'Sign in to access the RCDF management console.'}
+        </p>
+
+        {needsSetup && (
+          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-5 text-emerald-800">
+            ℹ️ <b>Initial setup:</b> Once this first administrator account is created, open registration will be permanently closed.
+          </div>
+        )}
+
+        {error && (
+          <div className="mt-4">
+            <Notice error>{error}</Notice>
+          </div>
+        )}
+
+        {needsSetup && (
+          <label className="label mt-4 block">
+            Full Name
+            <input
+              className="field mt-1"
+              type="text"
+              required
+              placeholder="e.g. Abdallah Adam"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          </label>
+        )}
+
+        <label className="label mt-4 block">
+          Email Address
+          <input
+            className="field mt-1"
+            type="email"
+            required
+            placeholder="admin@example.org"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+        </label>
+
+        <label className="label mt-4 block">
+          Password
+          <input
+            className="field mt-1"
+            type="password"
+            required
+            placeholder="••••••••"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+        </label>
+
+        {needsSetup && (
+          <label className="label mt-4 block">
+            Confirm Password
+            <input
+              className="field mt-1"
+              type="password"
+              required
+              placeholder="••••••••"
+              value={form.confirmPassword}
+              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+            />
+          </label>
+        )}
+
+        <button className="btn btn-primary mt-6 w-full" disabled={saving || checkingSetup}>
+          {saving
+            ? needsSetup
+              ? 'Creating account…'
+              : 'Signing in…'
+            : needsSetup
+            ? 'Create Administrator Account'
+            : 'Sign in'}
+        </button>
+      </form>
+    </main>
+  );
+}
+
 
 export function Dashboard() {
   const { user } = useAuth();
