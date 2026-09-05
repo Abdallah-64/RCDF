@@ -26,24 +26,6 @@
 .admin-dark .border-slate-200,
 .admin-dark [class*="border-[#c4c6ce]"] { border-color: #334155 !important; }
 
-/* Public website theme toggle. It does not change the admin dashboard. */
-.public-dark body { background: #0b1220; color: #e5e7eb; }
-.public-dark main { background: #0b1220; }
-.public-dark .bg-white,
-.public-dark .bg-mist,
-.public-dark [class*="bg-[#faf9fb]"],
-.public-dark [class*="bg-[#f5f3f6]"],
-.public-dark [class*="bg-[#eef4ef]"] { background-color: #111c2d !important; }
-.public-dark .text-ink,
-.public-dark .text-navy,
-.public-dark [class*="text-[#000f22]"] { color: #f8fafc !important; }
-.public-dark .text-muted,
-.public-dark [class*="text-[#43474d]"],
-.public-dark .text-slate-600 { color: #cbd5e1 !important; }
-.public-dark .border-slate-200,
-.public-dark [class*="border-[#c4c6ce]"] { border-color: #334155 !important; }
-.public-dark footer { background: #0f172a !important; color: #cbd5e1; }
-.public-dark button.fixed { background: #1e293b; border-color: #475569; color: #f8fafc; }
 
 /* On phones, the header uses the compact RCDF mark rather than the long logo. */
 @media (max-width: 767px) {
